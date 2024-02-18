@@ -35,6 +35,7 @@ To create a project similar to this from scratch, you can follow the steps below
   
  ```bash
     npx create-next-app@latest ./
+    npx shadcn-ui@latest init
  ```
 
 ## Git Setup
@@ -51,19 +52,21 @@ To create a project similar to this from scratch, you can follow the steps below
     git commit -m "first commit"
 ```
 
-8. Create a README.md file:
+9. Update your remote repository:
 
 ```bash
-    touch README.md
+    git remote add origin https://github.com/[yourname]/[gitreponame].git
+
 ```
 
-9. Add the README.md file to the git repository:
+10. Push your changes to the remote repository:
 
 ```bash
-    git add README.md
+    git push -u origin master
 ```
 
-## Getting Started
+## Project Setup
+
 
 10. Run the development server:
 
