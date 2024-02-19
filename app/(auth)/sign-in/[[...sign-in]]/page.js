@@ -1,3 +1,5 @@
+"use client";
+import useSWR from "swr";
 import { SignIn } from "@clerk/clerk-react";
 import React from "react";
 

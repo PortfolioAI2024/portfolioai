@@ -1,6 +1,6 @@
 import React from "react";
 
-const Layout = () => {
+const Layout = ({children}) => {
     return <main className="auth">{children}</main>;
 };
 
