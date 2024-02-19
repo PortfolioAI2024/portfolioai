@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -17,8 +18,10 @@ export default function RootLayout({
   children,
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={cn("font-roboto antialiased, roboto.variable")}>{children}</body>
     </html>
+    </ClerkProvider>
   );
 }
