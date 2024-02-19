@@ -3,7 +3,7 @@ import React from 'react'
 const AddPortfolioProfile
  = () => {
   return (
-    <div>AddPortfolioProfile
+    <div>Add Portfolio Profile
         
     </div>
   )
