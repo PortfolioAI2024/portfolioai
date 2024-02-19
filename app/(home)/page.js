@@ -9,7 +9,7 @@ const Home = () => {
       <p>
         Home
       </p>
-      <UserButton afterSignOutUrl='/' />
+      
     </div>
   )
 }
