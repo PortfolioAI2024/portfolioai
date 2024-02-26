@@ -1,43 +1,23 @@
 export const navLinks = [
     {
-      label: "Home",
+      label: "Accueil",
       route: "/",
-      icon: "/assets/icons/home.svg",
+      icon: "/assets/icons/accueil.png",
     },
     {
-      label: "Image Restore",
+      label: "Portfolio",
       route: "/transformations/add/restore",
-      icon: "/assets/icons/image.svg",
+      icon: "/assets/icons/image.png",
     },
     {
-      label: "Generative Fill",
-      route: "/transformations/add/fill",
-      icon: "/assets/icons/stars.svg",
-    },
-    {
-      label: "Object Remove",
-      route: "/transformations/add/remove",
-      icon: "/assets/icons/scan.svg",
-    },
-    {
-      label: "Object Recolor",
-      route: "/transformations/add/recolor",
-      icon: "/assets/icons/filter.svg",
-    },
-    {
-      label: "Background Remove",
-      route: "/transformations/add/removeBackground",
-      icon: "/assets/icons/camera.svg",
-    },
-    {
-      label: "Profile",
+      label: "Profil",
       route: "/profile",
-      icon: "/assets/icons/profile.svg",
+      icon: "/assets/icons/profile.png",
     },
     {
-      label: "Buy Credits",
+      label: "Achetez des Crédits",
       route: "/credits",
-      icon: "/assets/icons/bag.svg",
+      icon: "/assets/icons/credits.png",
     },
   ];
   

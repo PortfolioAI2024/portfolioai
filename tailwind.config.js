@@ -23,18 +23,21 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        bermuda: '#78dcca',
         purple: {
           100: "#F4F7FE",
           200: "#BCB6FF",
           400: "#868CFF",
           500: "#7857FF",
           600: "#4318FF",
+          700: "#9C6FE4",
         },
         dark: {
           400: "#7986AC",
           500: "#606C80",
           600: "#2B3674",
           700: "#384262",
+          800: "#1C1D21",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -69,7 +72,7 @@ module.exports = {
         Roboto: ["var(--font-roboto)"],
       },
       backgroundImage: {
-        "purple-gradient": "url('/assets/images/gradient-bg.svg')",
+        login: "url('/assets/images/login_page.svg')",
         banner: "url('/assets/images/banner-bg.png')",
       },
       borderRadius: {
