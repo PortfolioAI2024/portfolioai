@@ -1,70 +1,91 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Updated dummy data for the students
-const initialStudents = [
-  { id: 1, nom: "Doe", prenom: "Moha", prix: "1$/h", github: "moha-github", ecole: "Cegep De Maisonneuve" },
-  { id: 2, nom: "Smith", prenom: "Alex", prix: "95$/h", github: "alex-github", ecole: "Cegep De Maisonneuve" },
-  { id: 3, nom: "Johnson", prenom: "Aimen", prix: "4$/h", github: "aimen-github", ecole: "Cegep De Maisonneuve" },
-  { id: 4, nom: "Rodriguez", prenom: "Pedro", prix: "19$/h", github: "pedro-github", ecole: "Cegep De Maisonneuve" }
+const studentsData = [
+  { id: 1, nom: "Doe", prenom: "Moha", prix: 1, github: "moha-github", ecole: "Cegep De Maisonneuve" },
+  { id: 2, nom: "Smith", prenom: "Alex", prix: 95, github: "alex-github", ecole: "Cegep De Maisonneuve" },
+  { id: 3, nom: "Johnson", prenom: "Aimen", prix: 4, github: "aimen-github", ecole: "Cegep De Maisonneuve" },
+  { id: 4, nom: "Rodriguez", prenom: "Pedro", prix: 19, github: "pedro-github", ecole: "Cegep De Maisonneuve" }
 ];
 
 const StudentCard = ({ student }) => (
-  <div
-    className="bg-white dark:bg-gray-800 dark:text-white bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-    onClick={() => alert(`Nom: ${student.nom}\nPrénom: ${student.prenom}\nPrix: ${student.prix}\nGithub: ${student.github}\nÉcole: ${student.ecole}`)}
-  >
+  <div className="bg-white dark:bg-gray-700 bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer">
     <div className="font-bold text-lg">{`${student.prenom} ${student.nom}`}</div>
-    <div className="text-gray-700 dark:text-gray-300">{`Prix: ${student.prix}`}</div>
-    <a href={`https://github.com/${student.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-300">{`Github: ${student.github}`}</a>
+    <div className="text-gray-700 dark:text-gray-300">{`Prix: ${student.prix}$`}</div>
+    <a href={`https://github.com/${student.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">{`Github: ${student.github}`}</a>
     <p className="text-gray-700 dark:text-gray-300">{`École: ${student.ecole}`}</p>
   </div>
 );
 
 const Home = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [students, setStudents] = useState(initialStudents);
   const [searchTerm, setSearchTerm] = useState('');
+  const [students, setStudents] = useState(studentsData);
+  const [filteredStudents, setFilteredStudents] = useState(studentsData);
+  const [theme, setTheme] = useState('light'); // Theme state
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    if (event.target.value === '') {
-      setStudents(initialStudents);
-    } else {
-      const filteredStudents = initialStudents.filter(student =>
-        student.prenom.toLowerCase().includes(event.target.value.toLowerCase()) ||
-        student.nom.toLowerCase().includes(event.target.value.toLowerCase())
+  useEffect(() => {
+    const lowercasedFilter = searchTerm.toLowerCase();
+    const filteredData = students.filter(item => {
+      return Object.keys(item).some(key =>
+        typeof item[key] === "string" && item[key].toLowerCase().includes(lowercasedFilter)
       );
-      setStudents(filteredStudents);
+    });
+    setFilteredStudents(filteredData);
+  }, [searchTerm, students]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') ?? 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    setTheme(savedTheme);
+  }, []);
+
+  const sortStudents = (criteria) => {
+    let sortedStudents = [...filteredStudents];
+    if (criteria === 'name') {
+      sortedStudents.sort((a, b) => `${a.prenom} ${a.nom}`.localeCompare(`${b.prenom} ${b.nom}`));
+    } else if (criteria === 'price') {
+      sortedStudents.sort((a, b) => a.prix - b.prix);
     }
+    setFilteredStudents(sortedStudents);
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
   };
 
   return (
-    <div className={darkMode ? 'dark' : ''}>
-      <div className="flex flex-col items-center p-4 dark:bg-gray-900 dark:text-white">
-        <h1 className="text-4xl font-bold my-6 text-center">Meet Our Interns</h1>
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="mb-4 p-2 rounded"
-        />
-        <button
-          className="bg-gray-200 dark:bg-gray-600 p-2 rounded-full mb-4"
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
+    <div className={theme === 'light' ? 'bg-white' : 'bg-gray-800 text-white'}>
+      <div className="flex flex-col md:flex-row justify-between items-center p-4">
+        <h1 className="text-4xl font-bold mb-4 md:mb-0">Meet Our Interns</h1>
+        <div className="flex items-center">
+          <select 
+            className="bg-gray-200 dark:bg-gray-600 p-2 rounded mr-4" 
+            onChange={(e) => sortStudents(e.target.value)}
+          >
+            <option value="">Sort By</option>
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+          </select>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            className="p-2 rounded"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button 
+            onClick={toggleTheme} 
+            className="ml-4 bg-gray-200 dark:bg-gray-600 p-2 rounded"
+          >
+            {theme === 'light' ? 'Dark' : 'Light'} Mode
+          </button>
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 place-items-center">
-        {students.map(student => (
-          <StudentCard key={student.id} student={student} />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 place-items-center p-4">
+        {filteredStudents.map(student => <StudentCard key={student.id} student={student} />)}
       </div>
-      <p className="text-center my-4 dark:text-gray-300">Click on one of our team members to directly talk with them.</p>
     </div>
   );
 };
