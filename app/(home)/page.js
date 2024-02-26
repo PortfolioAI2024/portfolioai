@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // Updated dummy data for the students
-const students = [
+const initialStudents = [
   { id: 1, nom: "Doe", prenom: "Moha", prix: "1$/h", github: "moha-github", ecole: "Cegep De Maisonneuve" },
   { id: 2, nom: "Smith", prenom: "Alex", prix: "95$/h", github: "alex-github", ecole: "Cegep De Maisonneuve" },
   { id: 3, nom: "Johnson", prenom: "Aimen", prix: "4$/h", github: "aimen-github", ecole: "Cegep De Maisonneuve" },
@@ -16,22 +16,44 @@ const StudentCard = ({ student }) => (
   >
     <div className="font-bold text-lg">{`${student.prenom} ${student.nom}`}</div>
     <div className="text-gray-700 dark:text-gray-300">{`Prix: ${student.prix}`}</div>
-    <a href={`https://github.com/${student.github}`} className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-300">{`Github: ${student.github}`}</a>
+    <a href={`https://github.com/${student.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-300">{`Github: ${student.github}`}</a>
     <p className="text-gray-700 dark:text-gray-300">{`École: ${student.ecole}`}</p>
   </div>
 );
 
 const Home = () => {
   const [darkMode, setDarkMode] = useState(false);
-  
+  const [students, setStudents] = useState(initialStudents);
+  const [searchTerm, setSearchTerm] = useState('');
+
   const toggleDarkMode = () => setDarkMode(!darkMode);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    if (event.target.value === '') {
+      setStudents(initialStudents);
+    } else {
+      const filteredStudents = initialStudents.filter(student =>
+        student.prenom.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        student.nom.toLowerCase().includes(event.target.value.toLowerCase())
+      );
+      setStudents(filteredStudents);
+    }
+  };
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <div className="flex justify-between items-center p-4 dark:bg-gray-900 dark:text-white">
+      <div className="flex flex-col items-center p-4 dark:bg-gray-900 dark:text-white">
         <h1 className="text-4xl font-bold my-6 text-center">Meet Our Interns</h1>
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="mb-4 p-2 rounded"
+        />
         <button
-          className="bg-gray-200 dark:bg-gray-600 p-2 rounded-full"
+          className="bg-gray-200 dark:bg-gray-600 p-2 rounded-full mb-4"
           onClick={toggleDarkMode}
         >
           {darkMode ? 'Light Mode' : 'Dark Mode'}
