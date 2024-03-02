@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function StudentForm() {
-  return (
-    <div>StudentForm</div>
-  )
+    return <div>StudentForm</div>;
 }
 
-export default StudentForm
+export default StudentForm;
