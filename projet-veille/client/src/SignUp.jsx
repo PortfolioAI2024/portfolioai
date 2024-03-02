@@ -6,33 +6,33 @@ import { setDoc, doc } from "firebase/firestore";
 import { AuthContext } from "./AuthContext";
 
 const SignUp = () => {
+  // Définition des états pour chaque champ du formulaire
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userType, handleUserType] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const { setToken, setUserId, setUserType } = useContext(AuthContext);
+  // Utilisation du contexte d'authentification pour gérer le token et l'ID de l'utilisateur
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
+  // Gestion des changements de champ
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleSurnameChange = (e) => setSurname(e.target.value);
+  const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
 
   const handleSignUp = async () => {
-    try {
-      if (password !== confirmPassword) {
-        console.error("Les mots de passe ne correspondent pas.");
-        return;
-      }
+    if (password !== confirmPassword) {
+      console.error("Les mots de passe ne correspondent pas.");
+      return;
+    }
 
+    try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -40,114 +40,100 @@ const SignUp = () => {
       );
 
       const user = userCredential.user;
-      console.log("Utilisateur créé avec succès :", user);
 
-      setToken(user.accessToken);
-      setUserId(user.uid);
-      setUserType(userType);
+      // Enregistrement des informations de l'utilisateur dans le contexte d'authentification
+      authContext.setToken(user.accessToken);
+      authContext.setUserId(user.uid);
 
-      sessionStorage.setItem("token", user.accessToken);
-      sessionStorage.setItem("userId", user.uid);
-      sessionStorage.setItem("userType", userType);
-
-      console.log(`Le jeton d'authentification : ${user.accessToken}`);
-      console.log(`Le userId : ${user.uid}`);
-      console.log(`Le userType : ${userType}`);
-
-      const userDocRef = doc(firestore, "users", user.uid);
-
-      await setDoc(userDocRef, {
-        email: email,
-        userType: userType,
+      // Enregistrement des informations de l'utilisateur dans Firestore
+      await setDoc(doc(firestore, "users", user.uid), {
+        email,
+        name,
+        surname,
+        phoneNumber,
       });
 
       navigate("/home");
     } catch (error) {
-      console.error(
-        "Erreur lors de la création de l'utilisateur :",
-        error.message
-      );
+      console.error("Erreur lors de la création de l'utilisateur :", error);
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="w-full md:w-1/2 p-2">
-        <img
-          src="../images/sign_up_image.png"
-          alt="Description de l'image"
-          className="w-full h-auto"
-        />
-      </div>
-
-      <div className="w-full md:w-1/2 p-4 flex items-center">
-        <div className="container mx-auto my-8">
-          <center>
-            <h2 className="text-2xl font-bold">Inscription</h2>
-          </center>
-
-          <div className="grid grid-cols-1 gap-2 mt-3">
-            <label className="text-sm font-medium text-gray-700 mb-1">
-              Courriel :
-            </label>
-            <input
-              type="text"
-              value={email}
-              onChange={handleEmailChange}
-              className="p-2 border rounded-md w-full"
-            />
-
-            <label className="text-sm font-medium text-gray-700 mb-1">
-              Mot de passe :
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              className="p-2 border rounded-md w-full"
-            />
-
-            <label className="text-sm font-medium text-gray-700 mb-1">
-              Confirmer le mot de passe :
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              className="p-2 border rounded-md w-full"
-            />
-          </div>
-
-          <label className="text-sm font-medium text-gray-700 mb-1">
-            Type d'utilisateur :
-          </label>
-          <select
-            value={userType}
-            onChange={(e) => handleUserType(e.target.value)}
-            className="p-2 border rounded-md w-full"
-          >
-            <option value="">Sélectionnez le type</option>
-            <option value="etudiant">Étudiant</option>
-            <option value="entreprise">Entreprise</option>
-          </select>
-
-          <div className="mt-6 flex justify-center">
+      <div className="w-full md:w-1/2 p-4 flex items-center justify-center">
+        <div className="max-w-md w-full">
+          <h2 className="text-2xl font-bold text-center">Inscription</h2>
+          <div className="mt-4">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Nom</label>
+              <input
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Prénom</label>
+              <input
+                type="text"
+                value={surname}
+                onChange={handleSurnameChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+              <input
+                type="text"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Courriel</label>
+              <input
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Mot de passe</label>
+              <input
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
             <button
-              id="signup"
-              className="bg-green-800 text-white p-3 rounded-md w-full hover:bg-green-700"
               onClick={handleSignUp}
+              className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-md"
             >
               S'inscrire
             </button>
-          </div>
-
-          <div className="mt-4 flex justify-center">
-            <p>
-              Vous possédez un compte?{" "}
-              <Link to="/login" className="text-blue-500">
-                Connexion
-              </Link>
-            </p>
+            <div className="mt-4 text-center">
+              Vous possédez un compte? <Link to="/login" className="text-blue-500 hover:text-blue-700">Connexion</Link>
+            </div>
           </div>
         </div>
       </div>
