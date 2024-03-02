@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 
-const StudentCard = (props)  => (
-  <div className="bg-white dark:bg-gray-700 bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-    <div className="font-bold text-lg">{`${props.student.prenom} ${props.student.nom}`}</div>
-    <div className="text-gray-700 dark:text-gray-300">{`Prix: ${props.student.prix}$`}</div>
-    <a href={`https://github.com/${props.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">{`Github: ${props.student.github}`}</a>
-    <p className="text-gray-700 dark:text-gray-300">{`École: ${props.student.ecole}`}</p>
-  </div>
-);
+const StudentCard = (props) => (
+    <div className="bg-white dark:bg-gray-700 bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+      <div className="font-bold text-lg">{`${props.student.surname} ${props.student.name}`}</div>
+      <a href={`https://github.com/${props.student.GitHubLink}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">{`Github: ${props.student.GitHubLink}`}</a>
+      <div className="text-gray-700 dark:text-gray-300 mt-2">
+        Langues: 
+        <ul className="list-inside list-disc">
+          {props.student.langues.map((language, index) => (
+            <li key={index}>{language}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+  
 
 export default function ListStudents(props){
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +30,7 @@ export default function ListStudents(props){
       );
     });
     setFilteredStudents(filteredData);
+    console.log(students)
   }, [searchTerm, students]);
 
   useEffect(() => {
