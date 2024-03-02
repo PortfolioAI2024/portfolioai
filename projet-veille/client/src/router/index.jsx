@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/profile", element: <Profile /> },
-      { path: "createchatbot", element: <CreateChatbot/> }
+      { path: "/createchatbot", element: <CreateChatbot/> }
     ],
   },
 ]);
