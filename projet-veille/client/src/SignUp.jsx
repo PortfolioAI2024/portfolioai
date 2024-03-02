@@ -61,7 +61,7 @@ const SignUp = () => {
         userType: userType,
       });
 
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.error(
         "Erreur lors de la création de l'utilisateur :",
