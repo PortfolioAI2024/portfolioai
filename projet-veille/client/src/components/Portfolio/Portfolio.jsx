@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { auth, db } from "../../firebase/init.js";
-import { doc, getDoc, getDocs, collection, query } from "firebase/firestore";
+import { db } from "../../firebase/init.js";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../../AuthContext";
 
 function Portfolio() {
@@ -26,10 +26,18 @@ function Portfolio() {
     };
 
     // Gestionnaire d'événements pour soumettre le formulaire
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Envoyer les données du formulaire où vous le souhaitez (par exemple, à votre backend)
-        console.log(formData);
+        try {
+            const userDocRef = doc(db, "users", userId);
+            await updateDoc(userDocRef, formData); // Met à jour le document avec les nouvelles données du formulaire
+            console.log("Données envoyées avec succès à Firestore !");
+        } catch (error) {
+            console.error(
+                "Erreur lors de l'envoi des données à Firestore :",
+                error
+            );
+        }
     };
 
     async function fetchUserData() {
