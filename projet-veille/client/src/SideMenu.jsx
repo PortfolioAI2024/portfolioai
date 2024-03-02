@@ -6,7 +6,7 @@ import { navLinks } from "./constants/index";
 import { useLocation } from "react-router-dom";
 
 export default function Menu() {
-    const { token, setToken, setUserId, setUserType } = useContext(AuthContext);
+    const { setToken, setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false);
@@ -15,7 +15,6 @@ export default function Menu() {
     const handleSignOut = () => {
         setToken("");
         setUserId("");
-        setUserType("");
 
         sessionStorage.clear();
 
