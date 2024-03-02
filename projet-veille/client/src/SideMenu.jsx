@@ -4,7 +4,6 @@ import { AuthContext } from "./AuthContext";
 import Portfolio from "./components/Portfolio/Portfolio";
 import { navLinks } from "./constants/index";
 import { useLocation } from "react-router-dom";
-import { Image } from "./components/Image/Image";
 
 export default function Menu() {
     const { setToken, setUserId } = useContext(AuthContext);
