@@ -2,9 +2,20 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "./constantes.js";
 import  ListStudents  from "./ListStudents.jsx"
+import { db } from "./firebase/init.js";
 
 function App() {
-    useEffect(() => {}); // Ajoutez le token en dépendance pour déclencher le useEffect lorsqu'il change.
+    useEffect(() => {
+        async function getUsers(){
+        let students = []
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.array.forEach(element => {
+                students.push(element)
+            });
+        })
+    }
+    getUsers
+    }); // Ajoutez le token en dépendance pour déclencher le useEffect lorsqu'il change.
     const studentsData = [
         { id: 1, nom: "Doe", prenom: "Moha", prix: 1, github: "moha-github", ecole: "Cegep De Maisonneuve" },
         { id: 2, nom: "Smith", prenom: "Alex", prix: 95, github: "alex-github", ecole: "Cegep De Maisonneuve" },
