@@ -2,22 +2,17 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import { db } from "./firebase/init.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import StudentForm from "./components/StudentForm/StudentForm";
 
 import SideMenu from "./SideMenu";
 
 function Profile() {
-  return (
-    <div className="flex">
-      <SideMenu />
-      <div className="flex-1 p-10">
-        <div className="App">
-          <header className="App-header">
-            <h1>Profile</h1>
-          </header>
-        </div>
-      </div>
-    </div>
-  );
+    return (
+        <main>
+            <SideMenu />
+            <StudentForm/>
+        </main>
+    );
 }
 
 export default Profile;
