@@ -16,10 +16,10 @@ const StudentCard = (props)  => (
   </div>
 );
 
-const Home = () => {
+const ListStudents = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [students, setStudents] = useState(studentsData);
-  const [filteredStudents, setFilteredStudents] = useState(studentsData);
+  const [students, setStudents] = useState(props);
+  const [filteredStudents, setFilteredStudents] = useState(props);
   const [theme, setTheme] = useState('light'); // Theme state
 
   useEffect(() => {
@@ -89,4 +89,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ListStudents;

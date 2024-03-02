@@ -1,10 +1,16 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "./constantes.js";
+import { ListStudents } from "./ListStudents.jsx"
 
 function App() {
     useEffect(() => {}); // Ajoutez le token en dépendance pour déclencher le useEffect lorsqu'il change.
-
+    const studentsData = [
+        { id: 1, nom: "Doe", prenom: "Moha", prix: 1, github: "moha-github", ecole: "Cegep De Maisonneuve" },
+        { id: 2, nom: "Smith", prenom: "Alex", prix: 95, github: "alex-github", ecole: "Cegep De Maisonneuve" },
+        { id: 3, nom: "Johnson", prenom: "Aimen", prix: 4, github: "aimen-github", ecole: "Cegep De Maisonneuve" },
+        { id: 4, nom: "Rodriguez", prenom: "Pedro", prix: 19, github: "pedro-github", ecole: "Cegep De Maisonneuve" }
+      ];
     return (
         <>
             <div className="flex space-x-4 mt-4">
@@ -20,7 +26,7 @@ function App() {
                 </Link>
 
                 <p>Voici les profile des users!</p>
-                
+                <ListStudents key={studentsData.id} students={studentsData} />
             </div>
         </>
     );
