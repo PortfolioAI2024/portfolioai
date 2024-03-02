@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "./constantes.js";
-import { ListStudents } from "./ListStudents.jsx"
+import  ListStudents  from "./ListStudents.jsx"
 
 function App() {
     useEffect(() => {}); // Ajoutez le token en dépendance pour déclencher le useEffect lorsqu'il change.
@@ -26,7 +26,7 @@ function App() {
                 </Link>
 
                 <p>Voici les profile des users!</p>
-                <ListStudents key={studentsData.id} students={studentsData} />
+                <ListStudents students={studentsData} />
             </div>
         </>
     );

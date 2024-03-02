@@ -1,25 +1,18 @@
 import { useState, useEffect } from 'react';
 
-const studentsData = [
-  { id: 1, nom: "Doe", prenom: "Moha", prix: 1, github: "moha-github", ecole: "Cegep De Maisonneuve" },
-  { id: 2, nom: "Smith", prenom: "Alex", prix: 95, github: "alex-github", ecole: "Cegep De Maisonneuve" },
-  { id: 3, nom: "Johnson", prenom: "Aimen", prix: 4, github: "aimen-github", ecole: "Cegep De Maisonneuve" },
-  { id: 4, nom: "Rodriguez", prenom: "Pedro", prix: 19, github: "pedro-github", ecole: "Cegep De Maisonneuve" }
-];
-
 const StudentCard = (props)  => (
   <div className="bg-white dark:bg-gray-700 bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-    <div className="font-bold text-lg">{`${props.prenom} ${props.nom}`}</div>
-    <div className="text-gray-700 dark:text-gray-300">{`Prix: ${props.prix}$`}</div>
-    <a href={`https://github.com/${props.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">{`Github: ${student.github}`}</a>
-    <p className="text-gray-700 dark:text-gray-300">{`École: ${props.ecole}`}</p>
+    <div className="font-bold text-lg">{`${props.student.prenom} ${props.student.nom}`}</div>
+    <div className="text-gray-700 dark:text-gray-300">{`Prix: ${props.student.prix}$`}</div>
+    <a href={`https://github.com/${props.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">{`Github: ${props.student.github}`}</a>
+    <p className="text-gray-700 dark:text-gray-300">{`École: ${props.student.ecole}`}</p>
   </div>
 );
 
-const ListStudents = (props) => {
+export default function ListStudents(props){
   const [searchTerm, setSearchTerm] = useState('');
-  const [students, setStudents] = useState(props);
-  const [filteredStudents, setFilteredStudents] = useState(props);
+  const [students, setStudents] = useState(props.students);
+  const [filteredStudents, setFilteredStudents] = useState(props.students);
   const [theme, setTheme] = useState('light'); // Theme state
 
   useEffect(() => {
@@ -87,6 +80,4 @@ const ListStudents = (props) => {
       </div>
     </div>
   );
-};
-
-export default ListStudents;
+}
