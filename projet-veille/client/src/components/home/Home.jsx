@@ -19,8 +19,8 @@ function Home() {
         <>
             {token && (
                 <main className="flex">
-                    <SideMenu />
-                    <Portfolio />
+                    <SideMenu className="side-menu" />
+                    <Portfolio className="portfolio" />
                 </main>
             )}
         </>

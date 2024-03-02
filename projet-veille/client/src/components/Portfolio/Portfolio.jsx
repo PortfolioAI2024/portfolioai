@@ -2,7 +2,13 @@ import React from 'react'
 
 function Portfolio() {
   return (
-    <section className='portfolio'>Portfolio</section>
+    <section className='portfolio'>
+      
+
+
+
+      
+    </section>
   )
 }
 
