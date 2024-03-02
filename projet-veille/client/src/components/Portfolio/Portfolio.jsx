@@ -9,7 +9,7 @@ function Portfolio() {
         langues: "",
         competences: "",
         etudes: "",
-        numeroTelephone: "",
+        phoneNumber: "",
         email: "",
         experiences: "",
     });
@@ -43,6 +43,7 @@ function Portfolio() {
                 setFormData((prevFormData) => ({
                     ...prevFormData,
                     email: userData.email || "", // Si l'email n'est pas trouvé, définir une chaîne vide par défaut
+                    phoneNumber: userData.phoneNumber || "", // Si le numéro de téléphone n'est pas trouvé, définir une chaîne vide par défaut
                 }));
             } else {
                 console.log("Document does not exist!");
@@ -104,16 +105,16 @@ function Portfolio() {
                 </div>
                 <div>
                     <label
-                        htmlFor="numeroTelephone"
+                        htmlFor="phoneNumber"
                         className="block font-semibold"
                     >
                         Numéro de téléphone:
                     </label>
                     <input
                         type="tel"
-                        id="numeroTelephone"
-                        name="numeroTelephone"
-                        value={formData.numeroTelephone}
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
                         onChange={handleChange}
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
