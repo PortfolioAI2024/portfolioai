@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.portfolio {
+  background-color: red;
+  padding: 50px 0;
+  display: flex;
+}
+
+aside {
+  background-color: blue;
+  padding: 50px 0;
+}

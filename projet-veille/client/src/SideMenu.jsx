@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
+import Portfolio from "./components/Portfolio/Portfolio";
 
 export default function Menu() {
     const { token, setToken, setUserId, setUserType } = useContext(AuthContext);
@@ -39,7 +40,7 @@ export default function Menu() {
     }, []);
 
     return (
-        <div className="flex h-screen bg-white">
+        <>
             <aside className="w-64 text-black ml-4">
                 <nav className="mt-10 flex flex-col">
                     {token && (
@@ -138,6 +139,6 @@ export default function Menu() {
                     </div>
                 </aside>
             )}
-        </div>
+        </>
     );
 }
