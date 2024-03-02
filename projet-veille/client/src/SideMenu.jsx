@@ -63,7 +63,11 @@ export default function Menu() {
                                         }`}
                                     >
                                         <Link
-                                            className="sidebar-link"
+                                            className={`flex items-center py-2 px-4 ${
+                                              currentPage === "overview"
+                                                  ? "text-green-800"
+                                                  : "text-black"
+                                          } hover:bg-gray-300 hover:text-gray-800`}
                                             href={link.route}
                                         >
                                             {link.label}
@@ -76,6 +80,7 @@ export default function Menu() {
                             {navLinks.slice(6).map((link) => {
                                 const isActive = link.route === pathname;
                                 return (
+                                  
                                     <li
                                         key={link.route}
                                         className={`sidebar-nav_element group ${
@@ -85,7 +90,11 @@ export default function Menu() {
                                         }`}
                                     >
                                         <Link
-                                            className="sidebar-link"
+                                            className={`flex items-center py-2 px-4 ${
+                                              currentPage === "overview"
+                                                  ? "text-green-800"
+                                                  : "text-black"
+                                          } hover:bg-gray-300 hover:text-gray-800`}
                                             href={link.route}
                                         >
                                             {link.label}
@@ -93,49 +102,16 @@ export default function Menu() {
                                     </li>
                                 );
                             })}
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
-            <aside className="w-64 text-black ml-4">
-                <nav className="mt-10 flex flex-col">
-                    {token && (
-                        <>
                             <Link
-                                to="/home"
-                                className={`flex items-center py-2 px-4 ${
-                                    currentPage === "overview"
-                                        ? "text-green-800"
-                                        : "text-black"
-                                } hover:bg-gray-300 hover:text-gray-800`}
-                            >
-                                <b>Home</b>
-                            </Link>
-
-                            <div className="mt-auto">
-                                <Link
-                                    to="/profile"
-                                    className={`flex items-center py-2 px-4 ${
-                                        currentPage === "profile"
-                                            ? "text-green-800"
-                                            : "text-black"
-                                    } hover:bg-gray-300 hover:text-gray-800`}
-                                >
-                                    <b>Profile</b>
-                                </Link>
-
-                                <Link
                                     onClick={openModal}
                                     className="flex items-center py-2 px-4 text-black hover:bg-gray-300 hover:text-gray-800 cursor-pointer"
                                 >
                                     <b>Déconnexion</b>
                                 </Link>
-                            </div>
-                        </>
-                    )}
-                </nav>
+                        </ul>
+                    </nav>
+                </div>
             </aside>
-
             {showModal && (
                 <aside className="sidemenu fixed inset-0 z-10 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
