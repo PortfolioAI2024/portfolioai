@@ -4,7 +4,7 @@ import { AuthContext } from "../../AuthContext";
 import { apiUrl } from "../../constantes.js";
 import {} from "./home.css";
 import SideMenu from "../../SideMenu.jsx";
-import Portfolio from "../Portfolio/portfoliop.jsx";
+import Portfolio from "../Portfolio/Portfolio.jsx";
 
 function Home() {
     const { token, userId } = useContext(AuthContext);
@@ -18,9 +18,9 @@ function Home() {
     return (
         <>
             {token && (
-                <main>
+                <main className="flex">
                     <SideMenu />
-                    <Portfolio/>
+                    <Portfolio />
                 </main>
             )}
         </>

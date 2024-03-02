@@ -1,16 +1,16 @@
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "./AuthContext";
-import { db } from "./firebase/init.js";
+import { AuthContext } from "../../AuthContext";
+import { db } from "../../firebase/init.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import StudentForm from "./components/StudentForm/StudentForm";
+import StudentForm from "../StudentForm/StudentForm";
 
-import SideMenu from "./SideMenu";
+import SideMenu from "../../SideMenu";
 
 function Profile() {
     return (
         <main>
             <SideMenu />
-            <StudentForm/>
+            <StudentForm />
         </main>
     );
 }
