@@ -37,6 +37,15 @@ function Portfolio() {
         }
     };
 
+    const handleRemoveLangue = (index) => {
+        const updatedLangues = [...formData.langues];
+        updatedLangues.splice(index, 1);
+        setFormData({
+            ...formData,
+            langues: updatedLangues,
+        });
+    };
+
     // Gestionnaire d'événements pour soumettre le formulaire
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -108,7 +117,16 @@ function Portfolio() {
                 {/* Affichage des langues saisies */}
                 <ul>
                     {formData.langues.map((langue, index) => (
-                        <li key={index}>{langue}</li>
+                        <li key={index}>
+                            {langue}
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveLangue(index)}
+                                className="bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                            >
+                                Supprimer
+                            </button>
+                        </li>
                     ))}
                 </ul>
                 <div>
