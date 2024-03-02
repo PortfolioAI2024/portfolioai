@@ -106,10 +106,10 @@ function Portfolio() {
 
     return (
         <section className="portfolio">
-            <h2 className="text-2xl font-bold mb-4">Portfolio </h2>
+            <h1 className="f- ">Bienvenue à PortfolioAI </h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="langues" className="block font-semibold">
+                    <label htmlFor="langues" className="">
                         Langues:
                     </label>
                     <input
