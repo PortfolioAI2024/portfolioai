@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { db } from "../../firebase/init.js";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../../AuthContext";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 function Portfolio() {
     // State pour stocker les valeurs des champs du formulaire
@@ -25,6 +26,19 @@ function Portfolio() {
             ...formData,
             [name]: value,
         });
+    };
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const storage = getStorage();
+        const storageRef = ref(storage, `cv/${userId}`); // Définir le chemin où vous souhaitez stocker le fichier (dans ce cas, dans un dossier 'cv' avec le nom de l'utilisateur comme nom de fichier)
+
+        try {
+            await uploadBytes(storageRef, file);
+            console.log("CV téléchargé avec succès !");
+        } catch (error) {
+            console.error("Erreur lors du téléchargement du CV :", error);
+        }
     };
 
     const handleAddLangue = () => {
@@ -227,6 +241,19 @@ function Portfolio() {
                     </button>
                 </div>
             </form>
+
+            <div>
+                <label htmlFor="cv" className="block font-semibold">
+                    Télécharger votre CV :
+                </label>
+                <input
+                    type="file"
+                    id="cv"
+                    name="cv"
+                    onChange={handleFileUpload}
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
         </section>
     );
 }
