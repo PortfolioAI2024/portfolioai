@@ -86,7 +86,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row">
+        <div className="login flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 p-2">
                 <img
                     src="../images/login_image.png"

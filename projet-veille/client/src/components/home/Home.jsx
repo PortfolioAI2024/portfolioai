@@ -2,8 +2,8 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { apiUrl } from "../../constantes.js";
-import SideMenu from "../../SideMenu";
-
+import {} from "./home.css";
+import SideMenu from "../SideMenu/SideMenu.jsx";
 function Home() {
     const { token, userId } = useContext(AuthContext);
 
@@ -17,11 +17,15 @@ function Home() {
         <>
             {token && (
                 <div>
+                <main>
                     <SideMenu />
-                    <div>
-                        <p>Bienvenue dans la page student home!</p>
-                    </div>
-                </div>
+                    <section className="home">
+                        <Home/>
+                        <Student/>
+                    </section>
+                </main>
+                <Footer />
+               </div>
             )}
         </>
     );

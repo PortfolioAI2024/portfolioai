@@ -76,7 +76,7 @@ export default function Menu() {
       </aside>
 
       {showModal && (
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <aside className="sidemenu fixed inset-0 z-10 overflow-y-auto">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
@@ -131,7 +131,7 @@ export default function Menu() {
               </div>
             </div>
           </div>
-        </div>
+        </aside>
       )}
     </div>
   );
