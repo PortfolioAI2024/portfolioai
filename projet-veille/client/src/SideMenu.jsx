@@ -4,6 +4,7 @@ import { AuthContext } from "./AuthContext";
 import Portfolio from "./components/Portfolio/Portfolio";
 import { navLinks } from "./constants/index";
 import { useLocation } from "react-router-dom";
+import { Image } from "./components/Image/Image";
 
 export default function Menu() {
     const { setToken, setUserId } = useContext(AuthContext);
@@ -44,73 +45,70 @@ export default function Menu() {
     const { pathname } = location;
 
     return (
-        <div className="flex h-screen bg-white">
-            <aside className="sidebar">
-                <div className="sidebar flex size-full flex-col gap-4">
-                    <Link href="/" className="sidebar-logo" />
-                    <nav className="sidebar-nav">
-                        <ul className="sidebar-nav_elements">
-                            {navLinks.slice(0, 6).map((link) => {
-                                const isActive = link.route === pathname;
-                                return (
-                                    <li
-                                        key={link.route}
+        <aside className="sidebar">
+            <div className="sidebar flex size-full flex-col gap-4">
+                <Link href="/" className="sidebar-logo" />
+                <nav className="sidebar-nav">
+                    <ul className="sidebar-nav_elements">
+                        {navLinks.slice(0, 6).map((link) => {
+                            const isActive = link.route === pathname;
+                            return (
+                                <li
+                                    key={link.route}
+                                    className={`sidebar-nav_element group ${
+                                        isActive
+                                            ? "bg-purple-gradient text-background"
+                                            : "text-purple-700"
+                                    }`}
+                                >
+                                    <Link
                                         className={`sidebar-nav_element group ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
                                                 : "text-purple-700"
                                         }`}
+                                        href={link.route}
                                     >
-                                        <Link
-                                            className={`flex items-center py-2 px-4 ${
-                                              currentPage === "overview"
-                                                  ? "text-green-800"
-                                                  : "text-black"
-                                          } hover:bg-gray-300 hover:text-gray-800`}
-                                            href={link.route}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                        <ul>
-                            {navLinks.slice(6).map((link) => {
-                                const isActive = link.route === pathname;
-                                return (
-                                  
-                                    <li
-                                        key={link.route}
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <ul>
+                        {navLinks.slice(6).map((link) => {
+                            const isActive = link.route === pathname;
+                            return (
+                                <li
+                                    key={link.route}
+                                    className={`sidebar-nav_element group ${
+                                        isActive
+                                            ? "bg-purple-gradient text-background"
+                                            : "text-purple-700"
+                                    }`}
+                                >
+                                    <Link
                                         className={`sidebar-nav_element group ${
                                             isActive
-                                                ? "bg-purple-gradient text-input"
+                                                ? "bg-purple-gradient text-background"
                                                 : "text-purple-700"
                                         }`}
+                                        href={link.route}
                                     >
-                                        <Link
-                                            className={`flex items-center py-2 px-4 ${
-                                              currentPage === "overview"
-                                                  ? "text-green-800"
-                                                  : "text-black"
-                                          } hover:bg-gray-300 hover:text-gray-800`}
-                                            href={link.route}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                            <Link
-                                    onClick={openModal}
-                                    className="flex items-center py-2 px-4 text-black hover:bg-gray-300 hover:text-gray-800 cursor-pointer"
-                                >
-                                    <b>Déconnexion</b>
-                                </Link>
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                        <Link
+                            onClick={openModal}
+                            className="flex items-center py-2 px-4 text-black hover:bg-gray-300 hover:text-gray-800 cursor-pointer"
+                        >
+                            <b>Déconnexion</b>
+                        </Link>
+                    </ul>
+                </nav>
+            </div>
             {showModal && (
                 <aside className="sidemenu fixed inset-0 z-10 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -221,6 +219,6 @@ export default function Menu() {
                     </div>
                 </aside>
             )}
-        </div>
+        </aside>
     );
 }

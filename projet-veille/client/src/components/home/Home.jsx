@@ -18,9 +18,13 @@ function Home() {
     return (
         <>
             {token && (
-                <main className="flex">
+                <main className="root flex">
                     <SideMenu className="side-menu" />
-                    <Portfolio className="portfolio" />
+                    <div className="root-container">
+                        <div className="root-wrapper">
+                        <Portfolio className="portfolio" />
+                        </div>
+                    </div>
                 </main>
             )}
         </>
