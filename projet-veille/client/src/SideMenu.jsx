@@ -46,6 +46,57 @@ export default function Menu() {
 
     return (
         <div className="flex h-screen bg-white">
+            <aside className="sidebar">
+                <div className="sidebar flex size-full flex-col gap-4">
+                    <Link href="/" className="sidebar-logo" />
+                    <nav className="sidebar-nav">
+                        <ul className="sidebar-nav_elements">
+                            {navLinks.slice(0, 6).map((link) => {
+                                const isActive = link.route === pathname;
+                                return (
+                                    <li
+                                        key={link.route}
+                                        className={`sidebar-nav_element group ${
+                                            isActive
+                                                ? "bg-purple-gradient text-background"
+                                                : "text-purple-700"
+                                        }`}
+                                    >
+                                        <Link
+                                            className="sidebar-link"
+                                            href={link.route}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <ul>
+                            {navLinks.slice(6).map((link) => {
+                                const isActive = link.route === pathname;
+                                return (
+                                    <li
+                                        key={link.route}
+                                        className={`sidebar-nav_element group ${
+                                            isActive
+                                                ? "bg-purple-gradient text-input"
+                                                : "text-purple-700"
+                                        }`}
+                                    >
+                                        <Link
+                                            className="sidebar-link"
+                                            href={link.route}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
             <aside className="w-64 text-black ml-4">
                 <nav className="mt-10 flex flex-col">
                     {token && (
@@ -163,7 +214,6 @@ export default function Menu() {
                                                 className="sidebar-link"
                                                 href={link.route}
                                             >
-                                                
                                                 {link.label}
                                             </Link>
                                         </li>
@@ -186,7 +236,6 @@ export default function Menu() {
                                                 className="sidebar-link"
                                                 href={link.route}
                                             >
-                                                
                                                 {link.label}
                                             </Link>
                                         </li>
