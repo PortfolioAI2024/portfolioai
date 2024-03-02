@@ -9,8 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { setToken, setUserId, setPlaidAccessToken, setitemId } =
-        useContext(AuthContext);
+    const { setToken, setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
