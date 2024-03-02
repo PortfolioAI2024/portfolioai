@@ -7,6 +7,7 @@ import Root from "../Root.jsx";
 import Login from "../Login.jsx";
 import SignUp from "../SignUp.jsx";
 import Profile from "../Profile.jsx";
+import CreateChatbot from "../CreateChatbot.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/profile", element: <Profile /> },
+      { path: "createchatbot", element: <CreateChatbot/> }
     ],
   },
 ]);
