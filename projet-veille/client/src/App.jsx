@@ -20,6 +20,7 @@ function App() {
                 </Link>
 
                 <p>Voici les profile des users!</p>
+                
             </div>
         </>
     );

@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
-import { apiUrl } from "./constantes.js";
-import SideMenu from "./SideMenu";
+import { AuthContext } from "../../AuthContext";
+import { apiUrl } from "../../constantes.js";
+import SideMenu from "../../SideMenu";
 
 function Home() {
     const { token, userId } = useContext(AuthContext);
