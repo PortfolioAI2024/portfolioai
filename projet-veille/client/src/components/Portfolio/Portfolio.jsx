@@ -6,15 +6,17 @@ import { AuthContext } from "../../AuthContext";
 function Portfolio() {
     // State pour stocker les valeurs des champs du formulaire
     const [formData, setFormData] = useState({
-        langues: "",
+        langues: [],
         competences: "",
         etudes: "",
         phoneNumber: "",
         email: "",
         experiences: "",
+        GitHubLink: "",
     });
 
     const { userId } = useContext(AuthContext);
+    const [newLangue, setNewLangue] = useState(""); // Nouvelle langue à ajouter
 
     // Gestionnaire d'événements pour mettre à jour les valeurs du formulaire
     const handleChange = (e) => {
@@ -23,6 +25,16 @@ function Portfolio() {
             ...formData,
             [name]: value,
         });
+    };
+
+    const handleAddLangue = () => {
+        if (newLangue.trim() !== "") {
+            setFormData({
+                ...formData,
+                langues: [...formData.langues, newLangue.trim()],
+            });
+            setNewLangue(""); // Réinitialiser le champ de saisie de la nouvelle langue
+        }
     };
 
     // Gestionnaire d'événements pour soumettre le formulaire
@@ -48,11 +60,15 @@ function Portfolio() {
                 const userData = userDocSnapshot.data();
                 console.log("launched function");
 
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    email: userData.email || "", // Si l'email n'est pas trouvé, définir une chaîne vide par défaut
+                setFormData({
+                    langues: userData.langues || [], // Si les langues ne sont pas trouvées, définir un tableau vide par défaut
+                    competences: userData.competences || "",
+                    etudes: userData.etudes || "",
                     phoneNumber: userData.phoneNumber || "", // Si le numéro de téléphone n'est pas trouvé, définir une chaîne vide par défaut
-                }));
+                    email: userData.email || "", // Si l'email n'est pas trouvé, définir une chaîne vide par défaut
+                    experiences: userData.experiences || "",
+                    GitHubLink: userData.GitHubLink || "",
+                });
             } else {
                 console.log("Document does not exist!");
             }
@@ -77,11 +93,24 @@ function Portfolio() {
                         type="text"
                         id="langues"
                         name="langues"
-                        value={formData.langues}
-                        onChange={handleChange}
+                        value={newLangue}
+                        onChange={(e) => setNewLangue(e.target.value)}
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
+                    <button
+                        type="button"
+                        onClick={handleAddLangue}
+                        className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2"
+                    >
+                        Ajouter
+                    </button>
                 </div>
+                {/* Affichage des langues saisies */}
+                <ul>
+                    {formData.langues.map((langue, index) => (
+                        <li key={index}>{langue}</li>
+                    ))}
+                </ul>
                 <div>
                     <label
                         htmlFor="competences"
@@ -124,6 +153,7 @@ function Portfolio() {
                         name="phoneNumber"
                         value={formData.phoneNumber}
                         onChange={handleChange}
+                        readOnly
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                 </div>
@@ -156,6 +186,20 @@ function Portfolio() {
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     ></textarea>
                 </div>
+                <div>
+                    <label htmlFor="GitHubLink" className="block font-semibold">
+                        GitHub Link:
+                    </label>
+                    <input
+                        type="text"
+                        id="GitHubLink"
+                        name="GitHubLink"
+                        value={formData.GitHubLink}
+                        onChange={handleChange}
+                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    />
+                </div>
+
                 <div>
                     <button
                         type="submit"
