@@ -8,24 +8,26 @@ import Login from "../Login.jsx";
 import SignUp from "../SignUp.jsx";
 import Profile from "../Profile.jsx";
 import CreateChatbot from "../CreateChatbot.jsx";
+import Home from "../Home.jsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <AuthProvider>
-        <Root />
-      </AuthProvider>
-    ),
-    errorElement: <NoMatch />,
-    children: [
-      { path: "/", element: <App /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <SignUp /> },
-      { path: "/profile", element: <Profile /> },
-      { path: "createchatbot", element: <CreateChatbot/> }
-    ],
-  },
+    {
+        path: "/",
+        element: (
+            <AuthProvider>
+                <Root />
+            </AuthProvider>
+        ),
+        errorElement: <NoMatch />,
+        children: [
+            { path: "/", element: <App /> },
+            { path: "/home", element: <Home /> },
+            { path: "/login", element: <Login /> },
+            { path: "/signup", element: <SignUp /> },
+            { path: "/profile", element: <Profile /> },
+            { path: "/createchatbot", element: <CreateChatbot /> },
+        ],
+    },
 ]);
 
 export default router;
