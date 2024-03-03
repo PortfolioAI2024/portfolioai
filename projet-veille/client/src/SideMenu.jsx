@@ -101,7 +101,7 @@ export default function Menu() {
                         })}
                         <Link
                             onClick={openModal}
-                            className={`block p-8 ${
+                            className={`block py-8 ${
                                 pathname != "/logout"
                                     ? "text-purple-700"
                                     : "bg-purple-gradient text-background"
