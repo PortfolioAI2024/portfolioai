@@ -106,40 +106,42 @@ function Portfolio() {
 
     return (
         <section className="portfolio mx-auto">
-            <form onSubmit={handleSubmit} className="">
-            <h1 className="text-center">Bienvenue à PortfolioAI </h1>
-                <div>
-                    <label htmlFor="langues" className="">
+            <form onSubmit={handleSubmit} className="mt-4">
+                <h1 className="text-4xl font-bold">Bienvenue à PortfolioAI </h1>
+                <div className="items-center">
+                    <label htmlFor="langues" className="block">
                         Langues:
                     </label>
-                    <input
-                        type="text"
-                        id="langues"
-                        name="langues"
-                        value={newLangue}
-                        onChange={(e) => setNewLangue(e.target.value)}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                    <button
-                        type="button"
-                        onClick={handleAddLangue}
-                        className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2"
-                    >
-                        Ajouter
-                    </button>
+                    <span className="flex">
+                        <input
+                            type="text"
+                            id="langues"
+                            name="langues"
+                            value={newLangue}
+                            onChange={(e) => setNewLangue(e.target.value)}
+                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleAddLangue}
+                            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
+                        >
+                            Ajouter
+                        </button>
+                    </span>
                 </div>
                 {/* Affichage des langues saisies */}
-                <ul>
+                <ul className="inline">
                     {formData.langues.map((langue, index) => (
-                        <li key={index}>
-                            {langue}
+                        <li key={index} className="flex flex-row">
                             <button
                                 type="button"
                                 onClick={() => handleRemoveLangue(index)}
-                                className="bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                                className="m-1 bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
                             >
                                 Supprimer
                             </button>
+                            <p className="m-1">{langue}</p>
                         </li>
                     ))}
                 </ul>
