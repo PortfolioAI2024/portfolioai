@@ -9,8 +9,14 @@ import SideMenu from "../../SideMenu";
 function Profile() {
     return (
         <main>
-            <SideMenu />
-            <StudentForm />
+            <main className="root flex">
+                <SideMenu className="side-menu" />
+                <div className="root-container">
+                    <div className="root-wrapper">
+                        <StudentForm className="StudentForm" />
+                    </div>
+                </div>
+            </main>
         </main>
     );
 }
