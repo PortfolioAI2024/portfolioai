@@ -54,14 +54,14 @@ export default function Menu() {
                             return (
                                 <li
                                     key={link.route}
-                                    className={`sidebar-nav_element group ${
+                                    className={`sidebar-nav_element bold ${
                                         isActive
                                             ? "bg-purple-gradient text-background"
                                             : "text-purple-700"
                                     }`}
                                 >
                                     <Link
-                                        className={`sidebar-nav_element group ${
+                                        className={`${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
                                                 : "text-purple-700"
@@ -101,7 +101,11 @@ export default function Menu() {
                         })}
                         <Link
                             onClick={openModal}
-                            className="flex items-center py-2 px-4 text-black hover:bg-gray-300 hover:text-gray-800 cursor-pointer"
+                            className={`block p-8 ${
+                                pathname != "/logout"
+                                    ? "text-purple-700"
+                                    : "bg-purple-gradient text-background"
+                            }`}
                         >
                             <b>Déconnexion</b>
                         </Link>
