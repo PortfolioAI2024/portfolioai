@@ -1,7 +1,7 @@
 export const navLinks = [
     {
       label: "Accueil",
-      route: "/",
+      route: "/home",
       icon: "/assets/icons/accueil.png",
     },
     {

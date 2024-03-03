@@ -3,3 +3,4 @@
 /* Importing another CSS file */
 @import url('./components/Portfolio/portfolio.css');
 @import url('./components/home/home.css');
+@import url('./components/SideMenu/sidemenu.css');

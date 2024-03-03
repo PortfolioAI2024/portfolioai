@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
-import Portfolio from "./components/Portfolio/Portfolio";
-import { navLinks } from "./constants/index";
+import { AuthContext } from "../../AuthContext";
+import Portfolio from "../Portfolio/Portfolio";
+import { navLinks } from "../../constants/index";
 import { useLocation } from "react-router-dom";
 
 export default function Menu() {
@@ -46,7 +46,6 @@ export default function Menu() {
     return (
         <aside className="sidebar">
             <div className="sidebar flex size-full flex-col gap-4">
-                <Link href="/" className="sidebar-logo" />
                 <nav className="sidebar-nav">
                     <ul className="sidebar-nav_elements">
                         {navLinks.slice(0, 6).map((link) => {
@@ -61,12 +60,12 @@ export default function Menu() {
                                     }`}
                                 >
                                     <Link
-                                        className={`${
+                                        className={`lien ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
                                                 : "text-purple-700"
                                         }`}
-                                        href={link.route}
+                                        to={link.route}
                                     >
                                         {link.label}
                                     </Link>
@@ -92,7 +91,7 @@ export default function Menu() {
                                                 ? "bg-purple-gradient text-background"
                                                 : "text-purple-700"
                                         }`}
-                                        href={link.route}
+                                        to={link.route}
                                     >
                                         {link.label}
                                     </Link>
@@ -172,7 +171,7 @@ export default function Menu() {
                     </div>
 
                     <div className="flex size-full flex-col gap-4">
-                        <Link href="/" className="sidebar-logo" />
+                        <Link to="/" className="sidebar-logo" />
                         <nav className="sidebar-nav">
                             <ul className="sidebar-nav_elements">
                                 {navLinks.slice(0, 6).map((link) => {
@@ -188,7 +187,7 @@ export default function Menu() {
                                         >
                                             <Link
                                                 className="sidebar-link"
-                                                href={link.route}
+                                                to={link.route}
                                             >
                                                 {link.label}
                                             </Link>
@@ -210,7 +209,7 @@ export default function Menu() {
                                         >
                                             <Link
                                                 className="sidebar-link"
-                                                href={link.route}
+                                                to={link.route}
                                             >
                                                 {link.label}
                                             </Link>

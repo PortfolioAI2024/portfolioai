@@ -4,7 +4,7 @@ import { db } from "../../firebase/init.js";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import StudentForm from "../StudentForm/StudentForm";
 
-import SideMenu from "../../SideMenu";
+import SideMenu from "../SideMenu/SideMenu";
 
 function Profile() {
     return (
