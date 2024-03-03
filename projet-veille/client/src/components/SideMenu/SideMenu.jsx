@@ -33,10 +33,10 @@ export default function Menu() {
 
     useEffect(() => {
         const currentPath = window.location.pathname;
-        if (currentPath === "/home") {
+        if (currentPath === "/accueil") {
             setCurrentPage("overview");
-        } else if (currentPath === "/profile") {
-            setCurrentPage("profile");
+        } else if (currentPath === "/profil") {
+            setCurrentPage("profil");
         }
     }, []);
 
@@ -53,17 +53,17 @@ export default function Menu() {
                             return (
                                 <li
                                     key={link.route}
-                                    className={`sidebar-nav_element bold ${
+                                    className={`sidebar-nav_element ${
                                         isActive
-                                            ? "bg-purple-gradient text-background"
-                                            : "text-purple-700"
+                                            ? "bg-purple-gradient text-background hover:text-white"
+                                            : " hover:text-white"
                                     }`}
                                 >
                                     <Link
-                                        className={`lien ${
+                                        className={`p-2 ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
-                                                : "text-purple-700"
+                                                : "text-purple-700 hover:text-white"
                                         }`}
                                         to={link.route}
                                     >
@@ -89,7 +89,7 @@ export default function Menu() {
                                         className={`sidebar-nav_element group ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
-                                                : "text-purple-700"
+                                                : "text-purple-700 hover:text-white"
                                         }`}
                                         to={link.route}
                                     >
@@ -100,13 +100,9 @@ export default function Menu() {
                         })}
                         <Link
                             onClick={openModal}
-                            className={`block py-8 ${
-                                pathname != "/logout"
-                                    ? "text-purple-700"
-                                    : "bg-purple-gradient text-background"
-                            }`}
+                            className={`sidebar-nav_element ${"p-8 text-purple-700 hover:text-white"}`}
                         >
-                            <b>Déconnexion</b>
+                            Déconnexion
                         </Link>
                     </ul>
                 </nav>
