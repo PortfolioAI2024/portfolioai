@@ -8,8 +8,8 @@ function Portfolio() {
     // State pour stocker les valeurs des champs du formulaire
     const [formData, setFormData] = useState({
         langues: [],
-        competences: "",
-        etudes: "",
+        competencesTechniques: [],
+        ecoles: [],
         phoneNumber: "",
         email: "",
         experiences: "",
@@ -18,6 +18,8 @@ function Portfolio() {
 
     const { userId } = useContext(AuthContext);
     const [newLangue, setNewLangue] = useState(""); // Nouvelle langue à ajouter
+    const [newCompetenceTechnique, setNewCompetenceTechnique] = useState("");
+    const [newEcole, setNewEcole] = useState("");
 
     // Gestionnaire d'événements pour mettre à jour les valeurs du formulaire
     const handleChange = (e) => {
@@ -60,6 +62,47 @@ function Portfolio() {
         });
     };
 
+    const handleAddCompetenceTechnique = () => {
+        if (newCompetenceTechnique.trim() !== "") {
+            setFormData({
+                ...formData,
+                competencesTechniques: [
+                    ...formData.competencesTechniques,
+                    newCompetenceTechnique.trim(),
+                ],
+            });
+            setNewCompetenceTechnique("");
+        }
+    };
+
+    const handleRemoveCompetenceTechnique = (index) => {
+        const updatedCompetenceTechnique = [...formData.competencesTechniques];
+        updatedCompetenceTechnique.splice(index, 1);
+        setFormData({
+            ...formData,
+            competencesTechniques: updatedCompetenceTechnique,
+        });
+    };
+
+    const handleAddEcole = () => {
+        if (newEcole.trim() !== "") {
+            setFormData({
+                ...formData,
+                ecoles: [...formData.ecoles, newEcole.trim()],
+            });
+            setNewEcole("");
+        }
+    };
+
+    const handleRemoveEcole = (index) => {
+        const updatedEcole = [...formData.ecoles];
+        updatedEcole.splice(index, 1);
+        setFormData({
+            ...formData,
+            ecoles: updatedEcole,
+        });
+    };
+
     // Gestionnaire d'événements pour soumettre le formulaire
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -85,8 +128,8 @@ function Portfolio() {
 
                 setFormData({
                     langues: userData.langues || [], // Si les langues ne sont pas trouvées, définir un tableau vide par défaut
-                    competences: userData.competences || "",
-                    etudes: userData.etudes || "",
+                    competencesTechniques: userData.competencesTechniques || [],
+                    ecoles: userData.ecoles || [],
                     phoneNumber: userData.phoneNumber || "", // Si le numéro de téléphone n'est pas trouvé, définir une chaîne vide par défaut
                     email: userData.email || "", // Si l'email n'est pas trouvé, définir une chaîne vide par défaut
                     experiences: userData.experiences || "",
@@ -145,35 +188,106 @@ function Portfolio() {
                         </li>
                     ))}
                 </ul>
+
                 <div>
                     <label
-                        htmlFor="competences"
+                        htmlFor="competencesTechniques"
                         className="block font-semibold"
                     >
-                        Compétences:
+                        competencesTechniques:
                     </label>
                     <input
                         type="text"
-                        id="competences"
-                        name="competences"
-                        value={formData.competences}
+                        id="competencesTechniques"
+                        name="competencesTechniques"
+                        value={formData.competencesTechniques}
                         onChange={handleChange}
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                 </div>
-                <div>
-                    <label htmlFor="etudes" className="block font-semibold">
+
+                <div className="items-center">
+                    <label htmlFor="competencesTechniques" className="block">
+                        competencesTechniques:
+                    </label>
+                    <span className="flex">
+                        <input
+                            type="text"
+                            id="competencesTechniques"
+                            name="competencesTechniques"
+                            value={newCompetenceTechnique}
+                            onChange={(e) =>
+                                setNewCompetenceTechnique(e.target.value)
+                            }
+                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleAddCompetenceTechnique}
+                            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
+                        >
+                            Ajouter
+                        </button>
+                    </span>
+                </div>
+                {/* Affichage des langues saisies */}
+                <ul className="inline">
+                    {formData.competencesTechniques.map(
+                        (competenceTechniques, index) => (
+                            <li key={index} className="flex flex-row">
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        handleRemoveCompetenceTechnique(index)
+                                    }
+                                    className="m-1 bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                                >
+                                    Supprimer
+                                </button>
+                                <p className="m-1">{competenceTechniques}</p>
+                            </li>
+                        )
+                    )}
+                </ul>
+
+                <div className="items-center">
+                    <label htmlFor="ecoles" className="block font-semibold">
                         Études:
                     </label>
-                    <input
-                        type="text"
-                        id="etudes"
-                        name="etudes"
-                        value={formData.etudes}
-                        onChange={handleChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
+                    <span className="flex">
+                        <input
+                            type="text"
+                            id="ecoles"
+                            name="ecoles"
+                            value={newEcole}
+                            onChange={(e) => setNewEcole(e.target.value)}
+                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleAddEcole}
+                            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
+                        >
+                            Ajouter
+                        </button>
+                    </span>
                 </div>
+
+                <ul className="inline">
+                    {formData.ecoles.map((ecole, index) => (
+                        <li key={index} className="flex flex-row">
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveEcole(index)}
+                                className="m-1 bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                            >
+                                Supprimer
+                            </button>
+                            <p className="m-1">{ecole}</p>
+                        </li>
+                    ))}
+                </ul>
+
                 <div>
                     <label
                         htmlFor="phoneNumber"
