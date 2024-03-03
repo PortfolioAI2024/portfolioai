@@ -11,11 +11,7 @@ function Profile() {
         <main>
             <main className="root flex">
                 <SideMenu className="side-menu" />
-                <div className="root-container">
-                    <div className="root-wrapper">
-                        <StudentForm className="StudentForm" />
-                    </div>
-                </div>
+                <StudentForm className="StudentForm" />
             </main>
         </main>
     );

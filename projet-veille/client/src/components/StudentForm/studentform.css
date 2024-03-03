@@ -1,0 +1,17 @@
+.student {
+    color: white;
+}
+
+.student input {
+    color: black;
+    padding: 0.2rem;
+}
+
+.student form > * {
+    margin: 1rem 0;
+}
+
+.student label,
+p {
+    font-size: 1.2rem;
+}

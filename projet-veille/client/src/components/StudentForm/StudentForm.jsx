@@ -105,57 +105,66 @@ function StudentForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-                <label className="text-white">Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={userData.email}
-                    onChange={handleChange}
-                    className="rounded-md bg-gray-200 p-2"
-                />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
-            </div>
-            <div className="mb-4">
-                <label className="text-white">Phone Number:</label>
-                <input
-                    type="tel"
-                    name="phoneNumber"
-                    value={userData.phoneNumber}
-                    onChange={handleChange}
-                    className="rounded-md bg-gray-200 p-2"
-                />
-                {errors.phoneNumber && (
-                    <p className="text-red-500">{errors.phoneNumber}</p>
-                )}
-            </div>
-            {profileImageUrl && (
+        <section className="student mx-auto">
+            <form onSubmit={handleSubmit} className="mt-4">
+                <h1 className="text-2xl font-bold text-white mb-4">
+                    Edit Profile
+                </h1>
                 <div className="mb-4">
-                    <label className="text-white">Profile Image:</label>
-                    <img
-                        src={profileImageUrl}
-                        alt="Profile"
-                        className="rounded-md"
+                    <label className="text-white">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                        className="rounded-md bg-gray-200 p-2"
+                    />
+                    {errors.email && (
+                        <p className="text-red-500">{errors.email}</p>
+                    )}
+                </div>
+                <div className="mb-4">
+                    <label className="text-white">Phone Number:</label>
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={userData.phoneNumber}
+                        onChange={handleChange}
+                        className="rounded-md bg-gray-200 p-2"
+                    />
+                    {errors.phoneNumber && (
+                        <p className="text-red-500">{errors.phoneNumber}</p>
+                    )}
+                </div>
+                {profileImageUrl && (
+                    <div className="mb-4">
+                        <label className="text-white">Profile Image:</label>
+                        <img
+                            src={profileImageUrl}
+                            alt="Profile"
+                            className="rounded-md"
+                        />
+                    </div>
+                )}
+                <div className="mb-4">
+                    <label className="text-white">
+                        Upload New Profile Image:
+                    </label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="bg-gray-200 p-2"
                     />
                 </div>
-            )}
-            <div className="mb-4">
-                <label className="text-white">Upload New Profile Image:</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="bg-gray-200 p-2"
-                />
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-                Submit
-            </button>
-        </form>
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white py-2 px-4 rounded"
+                >
+                    Submit
+                </button>
+            </form>
+        </section>
     );
 }
 
