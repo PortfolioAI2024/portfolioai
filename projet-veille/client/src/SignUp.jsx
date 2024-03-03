@@ -56,7 +56,7 @@ const SignUp = () => {
                 phoneNumber,
             });
 
-            navigate("/home");
+            navigate("/accueil");
         } catch (error) {
             console.error(
                 "Erreur lors de la création de l'utilisateur :",

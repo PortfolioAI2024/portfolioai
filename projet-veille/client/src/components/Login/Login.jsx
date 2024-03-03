@@ -75,7 +75,7 @@ const Login = () => {
                 }
             }
 
-            navigate("/home");
+            navigate("/accueil");
         } catch (error) {
             console.error(
                 "Erreur lors de la connexion de l'utilisateur :",
