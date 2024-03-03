@@ -21,10 +21,10 @@ const router = createBrowserRouter([
         errorElement: <NoMatch />,
         children: [
             { path: "/", element: <App /> },
-            { path: "/home", element: <Home /> },
+            { path: "/accueil", element: <Home /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <SignUp /> },
-            { path: "/profile", element: <Profile /> },
+            { path: "/profil", element: <Profile /> },
             { path: "/createchatbot", element: <CreateChatbot /> },
         ],
     },

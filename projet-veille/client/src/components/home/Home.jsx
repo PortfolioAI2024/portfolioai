@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { apiUrl } from "../../constantes.js";
 import {} from "./home.css";
-import SideMenu from "../../SideMenu.jsx";
+import SideMenu from "../SideMenu/SideMenu.jsx";
 import Portfolio from "../Portfolio/Portfolio.jsx";
 
 function Home() {

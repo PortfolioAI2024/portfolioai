@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
-import Portfolio from "./components/Portfolio/Portfolio";
-import { navLinks } from "./constants/index";
+import { AuthContext } from "../../AuthContext";
+import Portfolio from "../Portfolio/Portfolio";
+import { navLinks } from "../../constants/index";
 import { useLocation } from "react-router-dom";
 
 export default function Menu() {
@@ -33,10 +33,10 @@ export default function Menu() {
 
     useEffect(() => {
         const currentPath = window.location.pathname;
-        if (currentPath === "/home") {
+        if (currentPath === "/accueil") {
             setCurrentPage("overview");
-        } else if (currentPath === "/profile") {
-            setCurrentPage("profile");
+        } else if (currentPath === "/profil") {
+            setCurrentPage("profil");
         }
     }, []);
 
@@ -46,7 +46,6 @@ export default function Menu() {
     return (
         <aside className="sidebar">
             <div className="sidebar flex size-full flex-col gap-4">
-                <Link href="/" className="sidebar-logo" />
                 <nav className="sidebar-nav">
                     <ul className="sidebar-nav_elements">
                         {navLinks.slice(0, 6).map((link) => {
@@ -54,19 +53,19 @@ export default function Menu() {
                             return (
                                 <li
                                     key={link.route}
-                                    className={`sidebar-nav_element bold ${
+                                    className={`sidebar-nav_element ${
                                         isActive
-                                            ? "bg-purple-gradient text-background"
-                                            : "text-purple-700"
+                                            ? "bg-purple-gradient text-background hover:text-white"
+                                            : " hover:text-white"
                                     }`}
                                 >
                                     <Link
-                                        className={`${
+                                        className={`p-2 ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
-                                                : "text-purple-700"
+                                                : "text-purple-700 hover:text-white"
                                         }`}
-                                        href={link.route}
+                                        to={link.route}
                                     >
                                         {link.label}
                                     </Link>
@@ -90,9 +89,9 @@ export default function Menu() {
                                         className={`sidebar-nav_element group ${
                                             isActive
                                                 ? "bg-purple-gradient text-background"
-                                                : "text-purple-700"
+                                                : "text-purple-700 hover:text-white"
                                         }`}
-                                        href={link.route}
+                                        to={link.route}
                                     >
                                         {link.label}
                                     </Link>
@@ -101,13 +100,9 @@ export default function Menu() {
                         })}
                         <Link
                             onClick={openModal}
-                            className={`block p-8 ${
-                                pathname != "/logout"
-                                    ? "text-purple-700"
-                                    : "bg-purple-gradient text-background"
-                            }`}
+                            className={`sidebar-nav_element ${"p-8 text-purple-700 hover:text-white"}`}
                         >
-                            <b>Déconnexion</b>
+                            Déconnexion
                         </Link>
                     </ul>
                 </nav>
@@ -172,7 +167,7 @@ export default function Menu() {
                     </div>
 
                     <div className="flex size-full flex-col gap-4">
-                        <Link href="/" className="sidebar-logo" />
+                        <Link to="/" className="sidebar-logo" />
                         <nav className="sidebar-nav">
                             <ul className="sidebar-nav_elements">
                                 {navLinks.slice(0, 6).map((link) => {
@@ -188,7 +183,7 @@ export default function Menu() {
                                         >
                                             <Link
                                                 className="sidebar-link"
-                                                href={link.route}
+                                                to={link.route}
                                             >
                                                 {link.label}
                                             </Link>
@@ -210,7 +205,7 @@ export default function Menu() {
                                         >
                                             <Link
                                                 className="sidebar-link"
-                                                href={link.route}
+                                                to={link.route}
                                             >
                                                 {link.label}
                                             </Link>
