@@ -105,9 +105,9 @@ function Portfolio() {
     }, []);
 
     return (
-        <section className="portfolio">
-            <h1 className="f- ">Bienvenue à PortfolioAI </h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <section className="portfolio mx-auto">
+            <form onSubmit={handleSubmit} className="">
+            <h1 className="text-center">Bienvenue à PortfolioAI </h1>
                 <div>
                     <label htmlFor="langues" className="">
                         Langues:

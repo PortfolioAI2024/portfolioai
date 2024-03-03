@@ -20,11 +20,7 @@ function Home() {
             {token && (
                 <main className="root flex">
                     <SideMenu className="side-menu" />
-                    <div className="root-container">
-                        <div className="root-wrapper">
-                        <Portfolio className="portfolio" />
-                        </div>
-                    </div>
+                    <Portfolio className="portfolio" />
                 </main>
             )}
         </>

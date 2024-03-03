@@ -1,4 +1,7 @@
 .portfolio {
     color: white;
-    margin: 0 auto;
+}
+
+.portfolio input {
+    color: black;
 }
