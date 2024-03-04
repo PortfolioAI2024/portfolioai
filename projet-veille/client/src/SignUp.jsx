@@ -13,6 +13,9 @@ const SignUp = () => {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [error, setError] = useState("");
+
+
 
     // Utilisation du contexte d'authentification pour gérer le token et l'ID de l'utilisateur
     const authContext = useContext(AuthContext);
@@ -28,12 +31,54 @@ const SignUp = () => {
     const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
 
     const handleSignUp = async () => {
+
+        setError("");
+
+        if (name.trim() === "") {
+            setError("Veuillez entrer un Nom.");
+            return;
+          }
+    
+          if (surname.trim() === "") {
+            setError("Veuillez entrer un Prénom.");
+            return;
+          }
+
+    
+          if (phoneNumber.trim() === "") {
+            setError("Veuillez entrer un Numéro de téléphone.");
+            return;
+          }
+
+          if (!email) {
+            setError("Veuillez saisir une adresse e-mail");
+            return;
+          }
+    
+          if (!password) {
+            setError("Veuillez saisir un mot de passe.");
+            return;
+          }
+    
+          if (!confirmPassword) {
+            setError("Veuillez confirmez votre mot de passe.");
+            return;
+          }
+    
+          if (password !== confirmPassword) {
+            setError("Les mots de passe ne correspondent pas.");
+            return;
+          }
+    
+
         if (password !== confirmPassword) {
             console.error("Les mots de passe ne correspondent pas.");
             return;
         }
 
         try {
+
+            
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 email,
@@ -59,11 +104,24 @@ const SignUp = () => {
             navigate("/accueil");
         } catch (error) {
             console.error(
-                "Erreur lors de la création de l'utilisateur :",
-                error
+              "Erreur lors de la création de l'utilisateur :",
+              error.message
             );
-        }
-    };
+      
+            if (error.code === "auth/invalid-email") {
+              setError(
+                "Adresse e-mail invalide. Veuillez saisir une adresse e-mail valide."
+              );
+            } else if (error.code === "auth/weak-password") {
+              setError(
+                "Le mot de passe est trop faible. Veuillez mettre un mot de passe avec au moins 6 caractère."
+              );
+            } else {
+              setError(error.message);
+            }
+          }
+        };
+      
 
     return (
         <div className="flex flex-col md:flex-row">
@@ -151,6 +209,14 @@ const SignUp = () => {
                         >
                             S'inscrire
                         </button>
+
+                        {error && (
+            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+              <p>{error}</p>
+            </div>
+          )}
+
+
                         <div className="mt-4 text-center">
                             Vous possédez un compte?{" "}
                             <Link

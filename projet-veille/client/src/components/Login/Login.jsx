@@ -8,6 +8,8 @@ import { doc, getDoc, getDocs, collection, query } from "firebase/firestore";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     const { setToken, setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -22,6 +24,15 @@ const Login = () => {
 
     const handleConnexion = async () => {
         try {
+
+            if (!email || !password) {
+                setErrorMessage(
+                  "Veuillez saisir votre adresse e-mail et votre mot de passe."
+                );
+                return;
+              }
+        
+
             const userCredential = await signInWithEmailAndPassword(
                 auth,
                 email,
@@ -39,50 +50,19 @@ const Login = () => {
             console.log(`Le jeton d'authentification : ${user.accessToken}`);
             console.log(`Le userId : ${user.uid}`);
 
-            const userDocRef = doc(db, "users", user.uid);
-            const userDocSnap = await getDoc(userDocRef);
-
-            if (userDocSnap.exists()) {
-                const userData = userDocSnap.data();
-                console.log(userData);
-
-                const itemsRef = collection(userDocRef, "items");
-                const itemsQuery = query(itemsRef);
-                const itemsSnapshot = await getDocs(itemsQuery);
-
-                if (itemsSnapshot.docs.length > 0) {
-                    const firstItemDoc = itemsSnapshot.docs[0];
-
-                    console.log("firstItemDoc:", firstItemDoc);
-
-                    const itemData = firstItemDoc.data();
-
-                    if (itemData.PlaidAccessToken) {
-                        setPlaidAccessToken(itemData.PlaidAccessToken);
-                        sessionStorage.setItem(
-                            "plaidAccessToken",
-                            itemData.PlaidAccessToken
-                        );
-                        console.log(
-                            `Le PlaidAccessToken : ${itemData.PlaidAccessToken}`
-                        );
-                    }
-
-                    const itemId = firstItemDoc.id;
-                    setitemId(itemId);
-                    sessionStorage.setItem("itemId", itemId);
-                    console.log(`Le itemId : ${firstItemDoc.id}`);
-                }
-            }
-
             navigate("/accueil");
         } catch (error) {
             console.error(
-                "Erreur lors de la connexion de l'utilisateur :",
-                error.message
+              "Erreur lors de la connexion de l'utilisateur :",
+              error.message
             );
-        }
-    };
+      
+            setErrorMessage(
+              "Erreur lors de la connexion. Veuillez vérifier vos informations."
+            );
+          }
+        };
+      
 
     return (
         <div className="login flex flex-col md:flex-row">
@@ -131,6 +111,15 @@ const Login = () => {
                             Se connecter
                         </button>
                     </div>
+
+
+
+                    {errorMessage && (
+            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+              {errorMessage}
+            </div>
+          )}
+
 
                     <div className="mt-4 flex justify-center">
                         <p>
