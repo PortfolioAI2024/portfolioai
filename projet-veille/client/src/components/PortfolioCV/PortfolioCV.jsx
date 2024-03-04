@@ -74,9 +74,17 @@ function PortfolioCV() {
                 ))}
               </ul>
             </div>
-  
-            <p className="mt-4 text-black">Expériences: {userData.experiences}</p>
-  
+    
+            <div className="mt-4">
+              <h3 className="text-lg font-bold mb-2">Expériences:</h3>
+              <ul className="list-disc pl-4">
+                {userData.experiences && userData.experiences.map((experience, index) => (
+                  <li key={index}>{experience}</li>
+                ))}
+              </ul>
+            </div>
+
+
             <div className="mt-4">
               <h3 className="text-lg font-bold mb-2">Langues:</h3>
               <ul className="list-disc pl-4">
