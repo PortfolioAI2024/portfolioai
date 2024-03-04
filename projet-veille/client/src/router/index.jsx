@@ -10,6 +10,7 @@ import SignUp from "../SignUp.jsx";
 import Profile from "../components/Profile/Profile.jsx";
 import CreateChatbot from "../CreateChatbot.jsx";
 import Home from "../components/home/Home.jsx";
+import Chatbot from "../components/Chatbot/Chatbot.jsx";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,11 @@ const router = createBrowserRouter([
             { path: "/signup", element: <SignUp /> },
             { path: "/profil", element: <Profile /> },
             { path: "/createchatbot", element: <CreateChatbot /> },
+<<<<<<< Updated upstream
             { path: "/portfolio", element: <PortfolioCV /> },
+=======
+            { path: "/chatbot", element: <Chatbot />}
+>>>>>>> Stashed changes
         ],
     },
 ]);

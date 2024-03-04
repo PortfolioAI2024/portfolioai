@@ -2,6 +2,32 @@ import { useState } from 'react';
 
 export default function CreateChatbot() {
 
+  const [response, setResponse] = useState(null);
+  
+  const apiKey = 'your_api_key_here'; // Replace with your actual API key
+    const url = 'https://api.convai.com/character/create';
+    const data = {
+      charName: "Raymond",
+      voiceType: "MALE",
+      backstory: "Raymond Reddington is a main character in the NBC series The Blacklist. Reddington is a criminal mastermind, making it to #4 and later to #1 on the FBI's Ten Most Wanted Fugitives, who suddenly turns himself in after 20+ years of evading the FBI."
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'CONVAI-API-KEY': apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      setResponse(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
