@@ -4,7 +4,8 @@ export default function Chatbot() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
 
-    const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
+    const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c';
+    const charID = '70ddeb78-3299-11ee-a0d5-42010a40000b'; 
     const url = 'https://api.convai.com/character/getResponse';
 
     const sendMessage = async (e) => {
@@ -24,18 +25,20 @@ export default function Chatbot() {
             const payload = {
                 userText: inputValue,
                 charID: '70ddeb78-3299-11ee-a0d5-42010a40000b', // Removed < >
+                charID: charID,
                 sessionID: '-1',
                 voiceResponse: 'False'
             };
 
             try {
-                const response = await fetch(url, {
+                const response = await fetch('https://api.convai.com/character/getResponse', {
                     method: 'POST',
                     headers: {
                         'CONVAI-API-KEY': apiKey,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
+                    mode: "cors"
                 });
 
                 if (!response.ok) {
