@@ -8,25 +8,28 @@ function PortfolioCV() {
   const { userId } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
+  const [cvDownloadUrl, setCVDownloadUrl] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Référence au document de l'utilisateur dans la collection "users"
         const userDocRef = doc(db, "users", userId);
-
-        // Obtention des données du document
         const userDocSnapshot = await getDoc(userDocRef);
 
         if (userDocSnapshot.exists()) {
-          // Mise à jour de l'état avec les données du document
           setUserData(userDocSnapshot.data());
 
-          // Récupération de l'URL de l'image de profil depuis Firebase Storage
           const storage = getStorage();
+
+          // Récupération de l'URL de l'image de profil depuis Firebase Storage
           const profileImageRef = ref(storage, `/profilPicture/${userId}`);
           const imageUrl = await getDownloadURL(profileImageRef);
           setProfileImageUrl(imageUrl);
+
+          // Récupération de l'URL du CV depuis Firebase Storage
+          const cvRef = ref(storage, `/cv/${userId}`);
+          const cvUrl = await getDownloadURL(cvRef);
+          setCVDownloadUrl(cvUrl);
         } else {
           console.log("Le document n'existe pas");
         }
@@ -35,9 +38,13 @@ function PortfolioCV() {
       }
     };
 
-    // Appel de la fonction pour récupérer les données utilisateur
     fetchUserData();
   }, [userId]);
+
+  const handleDownloadCV = () => {
+    // Utilisez l'URL du CV pour déclencher le téléchargement
+    window.open(cvDownloadUrl, '_blank');
+  };
 
   return (
     <div className="max-w-xl mx-auto mt-8 bg-white shadow-md p-8 rounded-md">
@@ -53,9 +60,12 @@ function PortfolioCV() {
   
           <div>
             <h2 className="text-2xl font-bold mb-4">{userData.name} {userData.surname}</h2>
-            <p className="text-black mb-2">Email: {userData.email}</p>
-            <p className="text-black mb-2">Numéro de téléphone: {userData.phoneNumber}</p>
-            <p className="text-black mb-2">GitHub: {userData.GitHubLink}</p>
+
+            <p className="text-md text-black mb-2">Email: {userData.email}</p>
+<p className="text-md text-black mb-2">Numéro de téléphone: {userData.phoneNumber}</p>
+<p className="text-md text-black mb-2">GitHub: {userData.GitHubLink}</p>
+
+
   
             <div className="mt-4">
               <h3 className="text-lg font-bold mb-2">Compétences Techniques:</h3>
@@ -93,6 +103,16 @@ function PortfolioCV() {
                 ))}
               </ul>
             </div>
+
+            <div className="mt-4">
+              <button 
+                className="bg-blue-500 text-white py-2 px-4 rounded"
+                onClick={handleDownloadCV}
+              >
+                Télécharger le CV
+              </button>
+            </div>
+
           </div>
         </>
       ) : (
