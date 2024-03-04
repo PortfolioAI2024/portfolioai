@@ -189,22 +189,6 @@ function Portfolio() {
                     ))}
                 </ul>
 
-                <div>
-                    <label
-                        htmlFor="competencesTechniques"
-                        className="block font-semibold"
-                    >
-                        competencesTechniques:
-                    </label>
-                    <input
-                        type="text"
-                        id="competencesTechniques"
-                        name="competencesTechniques"
-                        value={formData.competencesTechniques}
-                        onChange={handleChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                </div>
 
                 <div className="items-center">
                     <label htmlFor="competencesTechniques" className="block">
@@ -230,7 +214,7 @@ function Portfolio() {
                         </button>
                     </span>
                 </div>
-                {/* Affichage des langues saisies */}
+
                 <ul className="inline">
                     {formData.competencesTechniques.map(
                         (competenceTechniques, index) => (
