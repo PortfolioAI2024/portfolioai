@@ -33,9 +33,10 @@ export default function Chatbot() {
                     method: 'POST',
                     headers: {
                         'CONVAI-API-KEY': apiKey,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'form-data',
+                        'charID': '70ddeb78-3299-11ee-a0d5-42010a40000b', // Removed < >
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
                 });
 
                 if (!response.ok) {
@@ -48,7 +49,7 @@ export default function Chatbot() {
                     setMessages((prevMessages) => [...prevMessages, { text: data.text, author: 'bot' }]);
                 } else {
                     // Handle the case where 'text' is not in the response
-                    console.error('Received an unexpected response:', data);
+                    console.error( data);
                 }
             } catch (error) {
                 console.error('Error:', error);
