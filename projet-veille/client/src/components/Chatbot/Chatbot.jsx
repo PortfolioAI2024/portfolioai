@@ -41,7 +41,7 @@ export default function Chatbot() {
                 });
                 const data = await response.json();
                 // Make sure that data contains the 'text' property
-                if (data && data.text) {
+                if (data && data.character_id) {
                     setMessages((prevMessages) => [...prevMessages, { text: data.text, author: 'bot' }]);
                 } else {
                     // Handle the case where 'text' is not in the response
