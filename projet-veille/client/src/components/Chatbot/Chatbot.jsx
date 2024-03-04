@@ -5,7 +5,6 @@ export default function Chatbot() {
     const [inputValue, setInputValue] = useState('');
 
     const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
-    const url = 'https://api.convai.com/character/getResponse';
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -21,41 +20,29 @@ export default function Chatbot() {
             // Reset the input field
             setInputValue('');
 
-            const payload = {
-                userText: inputValue,
-                charID: '70ddeb78-3299-11ee-a0d5-42010a40000b', // Removed < >
-                sessionID: '-1',
-                voiceResponse: 'False'
+            const myHeaders = new Headers();
+            myHeaders.append("CONVAI-API-KEY", "b22b5ea5b583d8763f62f2ecf7ea384c");
+            myHeaders.append("Content-Type", "application/json");
+
+            const formdata = new FormData();
+            formdata.append("userText", inputValue);
+            formdata.append("charID", "36720106-3283-11ee-8365-42010a40000b");
+            formdata.append("sessionID", "-1");
+            formdata.append("voiceResponse", "False");
+
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: formdata,
+                redirect: "follow",
             };
 
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'CONVAI-API-KEY': apiKey,
-                        'Content-Type': 'form-data',
-                        'charID': '70ddeb78-3299-11ee-a0d5-42010a40000b', // Removed < >
-                    },
-                    body: JSON.stringify(payload),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                // Make sure that data contains the 'text' property
-                if (data && data.text) {
-                    setMessages((prevMessages) => [...prevMessages, { text: data.text, author: 'bot' }]);
-                } else {
-                    // Handle the case where 'text' is not in the response
-                    console.error( data);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                // Revert optimistic rendering
-                setMessages(prevMessages => prevMessages.slice(0, -1));
-            }
+            fetch("https://api.convai.com/character/get", requestOptions)
+                .then((response) => response.json())
+                .then((result) => {
+                    setMessages((prevMessages) => [...prevMessages, { text: result.text, author: 'bot' }]);
+                })
+                .catch((error) => console.error(error));
         }
     };
 
