@@ -41,7 +41,7 @@ export default function Chatbot() {
                 .then((result) => {
                     setMessages((prevMessages) => [...prevMessages, { text: result.text, author: 'bot' }]);
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => console.error(error))
                 .then((response) => response.json())
         }
     };
