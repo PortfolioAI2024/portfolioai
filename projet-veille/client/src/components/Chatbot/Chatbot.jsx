@@ -23,13 +23,12 @@ export default function Chatbot() {
 
             const myHeaders = new Headers();
             myHeaders.append("CONVAI-API-KEY", "b22b5ea5b583d8763f62f2ecf7ea384c");
-            myHeaders.append("Content-Type", "application/json");
 
             const formdata = new FormData();
             formdata.append("userText", inputValue);
             formdata.append("charID", "36720106-3283-11ee-8365-42010a40000b");
             formdata.append("sessionID", "-1");
-            formdata.append("voiceResponse", "False");
+            formdata.append("voiceResponse", "False"); 
 
             const requestOptions = {
                 method: "POST",
@@ -65,7 +64,7 @@ export default function Chatbot() {
                 ))}
             </div>
             <div className="border-t p-3">
-                <form onSubmit={sendMessage} className="flex">
+                <div className="flex">
                     <input
                         type="text"
                         value={inputValue}
@@ -73,10 +72,10 @@ export default function Chatbot() {
                         placeholder="Type a message..."
                         className="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <button type="submit" className="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600">
+                    <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600">
                         Send
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     );
