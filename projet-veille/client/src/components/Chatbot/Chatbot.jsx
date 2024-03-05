@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react'
+import { useState } from 'react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
 
-    const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
-    const url = 'https://api.convai.com/character/getResponse';
+    const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c';
+    const charID = '70ddeb78-3299-11ee-a0d5-42010a40000b'; 
+    const url = 'https://api.convai.com/character/get';
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -20,7 +22,7 @@ export default function Chatbot() {
 
             // Reset the input field
             setInputValue('');
-
+          
             const myHeaders = new Headers();
             myHeaders.append("CONVAI-API-KEY", "b22b5ea5b583d8763f62f2ecf7ea384c");
 
@@ -35,14 +37,35 @@ export default function Chatbot() {
                 headers: myHeaders,
                 body: formdata,
                 redirect: "follow"
+              
+            const payload = {
+                userText: inputValue,
+                charID: '70ddeb78-3299-11ee-a0d5-42010a40000b',
+                sessionID: '-1',
+                voiceResponse: 'False'
+              
             };
 
-            fetch("https://api.convai.com/character/getResponse", requestOptions)
-                .then((response) => response.json())
-                .then((result) => {
-                    setMessages((prevMessages) => [...prevMessages, { text: result.text, author: 'bot' }]);
-                })
-                .catch((error) => console.error(error));
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'CONVAI-API-KEY': apiKey,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                // Make sure that data contains the 'text' property
+                if (data && data.text) {
+                    setMessages((prevMessages) => [...prevMessages, { text: data.text, author: 'bot' }]);
+                } else {
+                    // Handle the case where 'text' is not in the response
+                    console.error('Received an unexpected response:', data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
     };
 
