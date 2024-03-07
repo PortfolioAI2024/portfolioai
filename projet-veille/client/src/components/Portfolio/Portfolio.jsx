@@ -12,14 +12,17 @@ function Portfolio() {
         ecoles: [],
         phoneNumber: "",
         email: "",
-        experiences: "",
+        experiences: [],
         GitHubLink: "",
+        userDescription: "", // Nouveau champ ajouté
+
     });
 
     const { userId } = useContext(AuthContext);
-    const [newLangue, setNewLangue] = useState(""); // Nouvelle langue à ajouter
+    const [newLangue, setNewLangue] = useState("");
     const [newCompetenceTechnique, setNewCompetenceTechnique] = useState("");
     const [newEcole, setNewEcole] = useState("");
+    const [newExperience, setNewExperience] = useState("");
 
     // Gestionnaire d'événements pour mettre à jour les valeurs du formulaire
     const handleChange = (e) => {
@@ -103,6 +106,25 @@ function Portfolio() {
         });
     };
 
+    const handleAddExperience = () => {
+        if (newExperience.trim() !== "") {
+            setFormData({
+                ...formData,
+                experiences: [...formData.experiences, newExperience.trim()],
+            });
+            setNewExperience("");
+        }
+    };
+
+    const handleRemoveExperience = (index) => {
+        const updatedExperience = [...formData.experiences];
+        updatedExperience.splice(index, 1);
+        setFormData({
+            ...formData,
+            experiences: updatedExperience,
+        });
+    };
+
     // Gestionnaire d'événements pour soumettre le formulaire
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -127,12 +149,13 @@ function Portfolio() {
                 console.log("launched function");
 
                 setFormData({
+                    userDescription: userData.userDescription || "",
                     langues: userData.langues || [], // Si les langues ne sont pas trouvées, définir un tableau vide par défaut
                     competencesTechniques: userData.competencesTechniques || [],
                     ecoles: userData.ecoles || [],
                     phoneNumber: userData.phoneNumber || "", // Si le numéro de téléphone n'est pas trouvé, définir une chaîne vide par défaut
                     email: userData.email || "", // Si l'email n'est pas trouvé, définir une chaîne vide par défaut
-                    experiences: userData.experiences || "",
+                    experiences: userData.experiences || [],
                     GitHubLink: userData.GitHubLink || "",
                 });
             } else {
@@ -151,6 +174,25 @@ function Portfolio() {
         <section className="portfolio mx-auto">
             <form onSubmit={handleSubmit} className="mt-4">
                 <h1 className="text-4xl font-bold">Bienvenue à PortfolioAI </h1>
+
+
+
+                <div>
+    <label htmlFor="userDescription" className="block font-semibold">
+        Description de l'utilisateur :
+    </label>
+    <input
+                            type="text"
+
+        id="userDescription"
+        name="userDescription"
+        value={formData.userDescription}
+        onChange={handleChange}
+        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+</div>
+
+
                 <div className="items-center">
                     <label htmlFor="langues" className="block">
                         Langues:
@@ -173,7 +215,7 @@ function Portfolio() {
                         </button>
                     </span>
                 </div>
-                {/* Affichage des langues saisies */}
+
                 <ul className="inline">
                     {formData.langues.map((langue, index) => (
                         <li key={index} className="flex flex-row">
@@ -189,22 +231,6 @@ function Portfolio() {
                     ))}
                 </ul>
 
-                <div>
-                    <label
-                        htmlFor="competencesTechniques"
-                        className="block font-semibold"
-                    >
-                        competencesTechniques:
-                    </label>
-                    <input
-                        type="text"
-                        id="competencesTechniques"
-                        name="competencesTechniques"
-                        value={formData.competencesTechniques}
-                        onChange={handleChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                </div>
 
                 <div className="items-center">
                     <label htmlFor="competencesTechniques" className="block">
@@ -230,7 +256,7 @@ function Portfolio() {
                         </button>
                     </span>
                 </div>
-                {/* Affichage des langues saisies */}
+
                 <ul className="inline">
                     {formData.competencesTechniques.map(
                         (competenceTechniques, index) => (
@@ -252,7 +278,7 @@ function Portfolio() {
 
                 <div className="items-center">
                     <label htmlFor="ecoles" className="block font-semibold">
-                        Études:
+                        Ecoles:
                     </label>
                     <span className="flex">
                         <input
@@ -288,6 +314,46 @@ function Portfolio() {
                     ))}
                 </ul>
 
+
+                <div className="items-center">
+                    <label htmlFor="experiences" className="block font-semibold">
+                        Experiences:
+                    </label>
+                    <span className="flex">
+                        <input
+                            type="text"
+                            id="experiences"
+                            name="experiences"
+                            value={newExperience}
+                            onChange={(e) => setNewExperience(e.target.value)}
+                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleAddExperience}
+                            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
+                        >
+                            Ajouter
+                        </button>
+                    </span>
+                </div>
+
+                <ul className="inline">
+                    {formData.experiences.map((experience, index) => (
+                        <li key={index} className="flex flex-row">
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveExperience(index)}
+                                className="m-1 bg-red-500 text-white font-semibold py-1 px-2 ml-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                            >
+                                Supprimer
+                            </button>
+                            <p className="m-1">{experience}</p>
+                        </li>
+                    ))}
+                </ul>
+
+
                 <div>
                     <label
                         htmlFor="phoneNumber"
@@ -319,21 +385,7 @@ function Portfolio() {
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                 </div>
-                <div>
-                    <label
-                        htmlFor="experiences"
-                        className="block font-semibold"
-                    >
-                        Expériences:
-                    </label>
-                    <textarea
-                        id="experiences"
-                        name="experiences"
-                        value={formData.experiences}
-                        onChange={handleChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    ></textarea>
-                </div>
+            
                 <div>
                     <label htmlFor="GitHubLink" className="block font-semibold">
                         GitHub Link:
