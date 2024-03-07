@@ -38,11 +38,12 @@ export default function Chatbot() {
             };
 
             fetch("https://api.convai.com/character/getResponse", requestOptions)
+            .then((response) => response.json())
                 .then((result) => {
                     setMessages((prevMessages) => [...prevMessages, { text: result.text, author: 'bot' }]);
                 })
                 .catch((error) => console.error(error))
-                .then((response) => response.json())
+                
         }
     };
 
