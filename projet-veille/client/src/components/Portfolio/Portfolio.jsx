@@ -15,23 +15,45 @@ function Portfolio() {
         experiences: [],
         GitHubLink: "",
         userDescription: "", // Nouveau champ ajouté
-
     });
+
+    // Add this new state to track changed fields
+    const [changedFields, setChangedFields] = useState({});
+
 
     const { userId } = useContext(AuthContext);
     const [newLangue, setNewLangue] = useState("");
     const [newCompetenceTechnique, setNewCompetenceTechnique] = useState("");
     const [newEcole, setNewEcole] = useState("");
     const [newExperience, setNewExperience] = useState("");
+    const commonLanguages = [
+        "English",
+        "Chinese",
+        "Hindi",
+        "Spanish",
+        "French",
+        "Arabic",
+        "Bengali",
+        "Russian",
+        "Portuguese",
+        "Indonesian"
+    ];
+    
 
     // Gestionnaire d'événements pour mettre à jour les valeurs du formulaire
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prevFormData => ({
+            ...prevFormData,
             [name]: value,
-        });
+        }));
+        setChangedFields(prevFields => ({
+            ...prevFields,
+            [name]: true, // Mark the field as changed
+        }));
     };
+    
+    
 
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
@@ -52,9 +74,11 @@ function Portfolio() {
                 ...formData,
                 langues: [...formData.langues, newLangue.trim()],
             });
-            setNewLangue(""); // Réinitialiser le champ de saisie de la nouvelle langue
+            setNewLangue("");
+            alert("Langue added: " + newLangue.trim());
         }
     };
+    
 
     const handleRemoveLangue = (index) => {
         const updatedLangues = [...formData.langues];
@@ -130,15 +154,43 @@ function Portfolio() {
         e.preventDefault();
         try {
             const userDocRef = doc(db, "users", userId);
-            await updateDoc(userDocRef, formData); // Met à jour le document avec les nouvelles données du formulaire
+            await updateDoc(userDocRef, formData);
             console.log("Données envoyées avec succès à Firestore !");
+    
+            // Create a list of fields that were updated
+            const updatedFieldsList = Object.keys(changedFields)
+                .map(field => {
+                    // Convert field names to a more readable format if needed
+                    switch(field) {
+                        case 'langues': return 'Languages';
+                        case 'competencesTechniques': return 'Technical Skills';
+                        case 'ecoles': return 'Schools';
+                        case 'phoneNumber': return 'Phone Number';
+                        case 'email': return 'Email';
+                        case 'experiences': return 'Experiences';
+                        case 'GitHubLink': return 'GitHub Link';
+                        case 'userDescription': return 'User Description';
+                        default: return field; // Default case if no custom name is needed
+                    }
+                })
+                .join(', ');
+    
+            // Display a professional alert message
+            if(updatedFieldsList) {
+                alert(`The following information in your portfolio was updated successfully: ${updatedFieldsList}.`);
+            } else {
+                alert("Your portfolio has been updated successfully.");
+            }
+    
+            // Reset changed fields after successful submission
+            setChangedFields({});
         } catch (error) {
-            console.error(
-                "Erreur lors de l'envoi des données à Firestore :",
-                error
-            );
+            console.error("Erreur lors de l'envoi des données à Firestore :", error);
+            alert("An error occurred while updating your portfolio. Please try again.");
         }
     };
+    
+    
 
     async function fetchUserData() {
         if (userId) {
@@ -193,28 +245,33 @@ function Portfolio() {
 </div>
 
 
-                <div className="items-center">
-                    <label htmlFor="langues" className="block">
-                        Langues:
-                    </label>
-                    <span className="flex">
-                        <input
-                            type="text"
-                            id="langues"
-                            name="langues"
-                            value={newLangue}
-                            onChange={(e) => setNewLangue(e.target.value)}
-                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        />
-                        <button
-                            type="button"
-                            onClick={handleAddLangue}
-                            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
-                        >
-                            Ajouter
-                        </button>
-                    </span>
-                </div>
+<div className="items-center">
+    <label htmlFor="langues" className="block">
+        Langues:
+    </label>
+    <span className="flex">
+        <select
+            id="langues"
+            name="langues"
+            value={newLangue}
+            onChange={(e) => setNewLangue(e.target.value)}
+            className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        >
+            <option value="">Select a Language</option>
+            {commonLanguages.map((language) => (
+                <option key={language} value={language}>{language}</option>
+            ))}
+        </select>
+        <button
+            type="button"
+            onClick={handleAddLangue}
+            className="bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 transition-colors duration-300 ml-2 inline"
+        >
+            Add Language
+        </button>
+    </span>
+</div>
+
 
                 <ul className="inline">
                     {formData.langues.map((langue, index) => (
@@ -388,7 +445,7 @@ function Portfolio() {
             
                 <div>
                     <label htmlFor="GitHubLink" className="block font-semibold">
-                        GitHub Link:
+                        GitHub User:
                     </label>
                     <input
                         type="text"
