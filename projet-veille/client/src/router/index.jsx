@@ -10,6 +10,7 @@ import SignUp from "../SignUp.jsx";
 import Profile from "../components/Profile/Profile.jsx";
 import CreateChatbot from "../CreateChatbot.jsx";
 import Home from "../components/home/Home.jsx";
+import Chatbot from "../components/Chatbot/Chatbot.jsx";
 
 const router = createBrowserRouter([
     {
