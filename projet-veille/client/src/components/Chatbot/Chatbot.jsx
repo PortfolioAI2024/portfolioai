@@ -1,8 +1,10 @@
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    let { charID } = useParams()
 
     const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
     const url = 'https://api.convai.com/character/getResponse';
@@ -26,7 +28,7 @@ export default function Chatbot() {
 
             const formdata = new FormData();
             formdata.append("userText", inputValue);
-            formdata.append("charID", "36720106-3283-11ee-8365-42010a40000b");
+            formdata.append("charID", charID);
             formdata.append("sessionID", "-1");
             formdata.append("voiceResponse", "False"); 
 
