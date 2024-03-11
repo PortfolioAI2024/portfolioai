@@ -1,13 +1,14 @@
-import React from "react";
-import { useState } from "react";
+
+import { useParams } from 'next/navigation';
+import React, { useState } from 'react';
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState('');
+    let { charID } = useParams()
 
-    const apiKey = "b22b5ea5b583d8763f62f2ecf7ea384c";
-    const charID = "70ddeb78-3299-11ee-a0d5-42010a40000b";
-    const url = "https://api.convai.com/character/getResponse";
+    const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
+    const url = 'https://api.convai.com/character/getResponse';
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -26,36 +27,29 @@ export default function Chatbot() {
             // Reset the input field
             setInputValue("");
 
-            const payload = {
-                userText: inputValue,
-                charID: "70ddeb78-3299-11ee-a0d5-42010a40000b",
-                sessionID: "-1",
-                voiceResponse: "False",
+
+            const myHeaders = new Headers();
+            myHeaders.append("CONVAI-API-KEY", "b22b5ea5b583d8763f62f2ecf7ea384c");
+
+            const formdata = new FormData();
+            formdata.append("userText", inputValue);
+            formdata.append("charID", charID);
+            formdata.append("sessionID", "-1");
+            formdata.append("voiceResponse", "False"); 
+
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: formdata,
+                redirect: "follow"
             };
 
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "CONVAI-API-KEY": apiKey,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(payload),
-                });
-                const data = await response.json();
-                // Make sure that data contains the 'text' property
-                if (data && data.character_id) {
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
-                        { text: data.text, author: "bot" },
-                    ]);
-                } else {
-                    // Handle the case where 'text' is not in the response
-                    console.error("Received an unexpected response:", data);
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
+            fetch("https://api.convai.com/character/getResponse", requestOptions)
+            .then((response) => response.json())
+                .then((result) => {
+                    setMessages((prevMessages) => [...prevMessages, { text: result.text, author: 'bot' }]);
+                })
+                .catch((error) => console.error(error))
         }
     };
 
@@ -83,7 +77,7 @@ export default function Chatbot() {
                 ))}
             </div>
             <div className="border-t p-3">
-                <form onSubmit={sendMessage} className="flex">
+                <div className="flex">
                     <input
                         type="text"
                         value={inputValue}
@@ -91,19 +85,11 @@ export default function Chatbot() {
                         placeholder="Type a message..."
                         className="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <input
-                        type="text"
-                        id="charID"
-                        value="70ddeb78-3299-11ee-a0d5-42010a40000b"
-                        className="hidden"
-                    />
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600"
-                    >
+
+                    <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600">
                         Send
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../AuthContext.jsx";
-import PortfolioCV from "../components/PortfolioCV/PortfolioCV.jsx";
+import CV from "../components/CV/CV.jsx";
 
 import App from "../App.jsx";
 import NoMatch from "../NoMatch.jsx";
@@ -22,14 +22,14 @@ const router = createBrowserRouter([
         ),
         errorElement: <NoMatch />,
         children: [
-            { path: "/", element: <App /> },
+            { path: "/", element: <App /> }, 
             { path: "/accueil", element: <Home /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <SignUp /> },
             { path: "/profil", element: <Profile /> },
             { path: "/createchatbot", element: <CreateChatbot /> },
-            { path: "/portfolio", element: <PortfolioCV /> },
-            { path: "/chatbot", element: <Chatbot />}
+            { path: "/portfolio", element: <CV /> },
+            { path: "/chatbot/:charID", element: <Chatbot/>}
         ],
     },
 ]);
