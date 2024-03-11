@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function CreateChatbot() {
+export default function CreateChatbot(props) {
   const [response, setResponse] = useState(null);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -83,7 +83,7 @@ export default function CreateChatbot() {
             <textarea
               id="aboutYourself"
               name="aboutYourself"
-              value={formData.aboutYourself}
+              value={props.userDescription.userDescription}
               onChange={handleChange}
               rows="4"
               placeholder="Your message..."
