@@ -1,7 +1,9 @@
 
 
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AuthContext } from "../../AuthContext";
+import { db } from "../../firebase/init.js";
+import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
@@ -13,6 +15,7 @@ export default function Chatbot() {
     const url = 'https://api.convai.com/character/getResponse';
 
     const sendMessage = async (e) => {
+        console.log(charID)
         e.preventDefault();
         if (inputValue.trim()) {
             const userMessage = {
@@ -28,14 +31,15 @@ export default function Chatbot() {
 
             // Reset the input field
             setInputValue("");
-
+ 
 
             const myHeaders = new Headers();
             myHeaders.append("CONVAI-API-KEY", "b22b5ea5b583d8763f62f2ecf7ea384c");
 
             const formdata = new FormData();
             formdata.append("userText", inputValue);
-            formdata.append("charID", charID);
+            console.log(sessionStorage.getItem("charID"))
+            formdata.append("charID", sessionStorage.getItem("charID"));
             formdata.append("sessionID", "-1");
             formdata.append("voiceResponse", "False"); 
 

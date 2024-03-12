@@ -15,12 +15,11 @@ export default function CreateChatbot(props) {
 
   const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c';
   const url = 'https://api.convai.com/character/create';
-
   function createBot() {
     const json = JSON.stringify({
       charName: formData.fullName,
       voiceType: formData.voiceType,
-      backstory: formData.aboutYourself
+      backstory: JSON.stringify(props.userDescription, null, 2)
     });
 
     fetch(url, {
@@ -44,9 +43,10 @@ export default function CreateChatbot(props) {
 
           // Enregistrez le charID dans le contexte d'authentification
           setCharID(data.charID);
-
+          console.log(data.charID)
           // Enregistrez également le charID dans le sessionStorage
           sessionStorage.setItem('charID', data.charID);
+          console.log(sessionStorage.getItem("charID"))
 
           return setDoc(userRef, {
 
