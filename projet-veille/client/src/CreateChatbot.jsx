@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from "react";
+import { db } from "../src/firebase/init.js";
+import { doc, setDoc, getDocs, collection } from "firebase/firestore";
+import { AuthContext } from "../src/AuthContext";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export default function CreateChatbot(props) {
   const [response, setResponse] = useState(null);
   const [formData, setFormData] = useState({
     fullName: '',
     voiceType: '',
-    aboutYourself: ''
+    aboutYourself: JSON.stringify(props.userDescription, null, 2)
   });
+  const { userId, setCharID } = useContext(AuthContext);
 
   const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c';
   const url = 'https://api.convai.com/character/create';
 
   function createBot() {
-    // Convert your formData to JSON if that's what the API expects
     const json = JSON.stringify({
       charName: formData.fullName,
       voiceType: formData.voiceType,
@@ -23,17 +27,43 @@ export default function CreateChatbot(props) {
       method: 'POST',
       headers: {
         'CONVAI-API-KEY': apiKey,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: json // Use the JSON string here
+      body: json,
     })
       .then(response => response.json())
       .then(data => {
+        console.log(json)
+
         console.log(data);
         setResponse(data);
+
+        const userRef = doc(db, 'users', userId);
+
+        if (data.charID) {
+
+          // Enregistrez le charID dans le contexte d'authentification
+          setCharID(data.charID);
+
+          // Enregistrez également le charID dans le sessionStorage
+          sessionStorage.setItem('charID', data.charID);
+
+          return setDoc(userRef, {
+
+            charID: data.charID,
+            // Ajoutez d'autres champs si nécessaire
+          },
+            { merge: true }
+          );
+        } else {
+          throw new Error('Aucun charID reçu de la réponse de l\'API');
+        }
+      })
+      .then(() => {
+        console.log('Firestore mis à jour avec charID');
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Erreur :', error);
       });
   }
 
@@ -83,7 +113,7 @@ export default function CreateChatbot(props) {
             <textarea
               id="aboutYourself"
               name="aboutYourself"
-              value={props.userDescription.userDescription}
+              value={JSON.stringify(props.userDescription, null, 2)}
               onChange={handleChange}
               rows="4"
               placeholder="Your message..."

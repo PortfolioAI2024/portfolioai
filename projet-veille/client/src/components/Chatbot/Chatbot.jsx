@@ -1,11 +1,13 @@
 
-import { useParams } from 'next/navigation';
-import React, { useState } from 'react';
+
+import React, { useState, useContext } from 'react';
+import { AuthContext } from "../../AuthContext";
 
 export default function Chatbot() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    let { charID } = useParams()
+    const { userId, charID } = useContext(AuthContext);
+
 
     const apiKey = 'b22b5ea5b583d8763f62f2ecf7ea384c'; // Removed < >
     const url = 'https://api.convai.com/character/getResponse';
