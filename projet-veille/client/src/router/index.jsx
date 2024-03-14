@@ -11,27 +11,29 @@ import Profile from "../components/Profile/Profile.jsx";
 import CreateChatbot from "../CreateChatbot.jsx";
 import Home from "../components/home/Home.jsx";
 import Chatbot from "../components/Chatbot/Chatbot.jsx";
+import World from "../World.jsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: (
-            <AuthProvider>
-                <Root />
-            </AuthProvider>
-        ),
-        errorElement: <NoMatch />,
-        children: [
-            { path: "/", element: <App /> }, 
-            { path: "/accueil", element: <Home /> },
-            { path: "/login", element: <Login /> },
-            { path: "/signup", element: <SignUp /> },
-            { path: "/profil", element: <Profile /> },
-            { path: "/createchatbot", element: <CreateChatbot /> },
-            { path: "/portfolio", element: <CV /> },
-            { path: "/chatbot", element: <Chatbot/>}
-        ],
-    },
+  {
+    path: "/",
+    element: (
+      <AuthProvider>
+        <Root />
+      </AuthProvider>
+    ),
+    errorElement: <NoMatch />,
+    children: [
+      { path: "/", element: <App /> },
+      { path: "/accueil", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <SignUp /> },
+      { path: "/profil", element: <Profile /> },
+      { path: "/createchatbot", element: <CreateChatbot /> },
+      { path: "/portfolio", element: <CV /> },
+      { path: "/chatbot", element: <Chatbot /> },
+      { path: "/world", element: <World /> },
+    ],
+  },
 ]);
 
 export default router;
