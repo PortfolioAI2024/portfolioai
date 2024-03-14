@@ -1,6 +1,82 @@
-/* login.css */
-
-.login{
-
-}
-
+/* Form container */
+.login {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Left side image */
+  .login .w-full img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Right side login form */
+  .login .w-full.md\:w-1/2 {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Form container */
+  .login .container {
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  /* Form title */
+  .login h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Form input fields */
+  .login input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  /* Submit button */
+  .login button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  /* Submit button hover effect */
+  .login button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Error message */
+  .login .bg-red-100 {
+    border-left: 4px solid #f44336;
+    color: #f44336;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Signup link */
+  .login .mt-4 {
+    text-align: center;
+  }
+  
+  .login .mt-4 a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login .mt-4 a:hover {
+    text-decoration: underline;
+  }
+  

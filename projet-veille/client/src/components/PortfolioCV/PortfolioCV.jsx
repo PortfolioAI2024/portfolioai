@@ -4,6 +4,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { AuthContext } from "../../AuthContext";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { Link } from "react-router-dom"; // Importez Link depuis react-router-dom
+import './PortfolioCV.css'; // This is the correct import statement
+
 
 function PortfolioCV() {
   const [userData, setUserData] = useState(null);

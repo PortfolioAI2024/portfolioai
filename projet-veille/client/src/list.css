@@ -6,20 +6,23 @@ body, h1, h2, h3, p, a {
   font-weight: 400; /* Default font weight */
   line-height: 1.6; /* Improve readability */
 }
+
 body.light {
   --background-color: #EDE7F6; /* Light purple background for light theme */
   --text-color: #5E35B1; /* Dark purple text for light theme */
-  --card-bg-color: #F3E5F5; /* Very light purple for card backgrounds in light theme */
+  --card-bg-color: rgba(243, 229, 245, 0.8); /* Translucent light purple for card backgrounds in light theme */
   --link-color: #7E57C2; /* Purple link color for light theme */
   --link-hover-color: #9575CD; /* Slightly lighter purple for link hover in light theme */
+  --backdrop-filter: blur(10px);
 }
 
 body.dark {
   --background-color: #121212; /* Dark grey background for dark theme */
   --text-color: #B39DDB; /* Light purple text color for dark theme */
-  --card-bg-color: #1E1E1E; /* Slightly lighter grey for card backgrounds in dark theme */
+  --card-bg-color: rgba(50, 50, 50, 0.8); /* Translucent dark grey for card backgrounds in dark theme */
   --link-color: #673AB7; /* Deep purple link color for dark theme */
   --link-hover-color: #7E57C2; /* Brighter purple for link hover in dark theme */
+  --backdrop-filter: blur(10px);
 }
 
 body {
@@ -48,7 +51,7 @@ body {
 .card {
   background-color: var(--card-bg-color);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Bright shadow */
   margin: 10px;
   padding: 20px;
   display: flex;
@@ -56,12 +59,13 @@ body {
   justify-content: space-between;
   width: calc(33.333% - 40px);
   min-width: 280px;
+  height: 300px; /* Adjust height as needed */
   box-sizing: border-box;
 }
 
+
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .card-inner {
@@ -101,6 +105,7 @@ body {
   border-radius: 5px;
   background-color: var(--card-bg-color);
   color: var(--text-color);
+  backdrop-filter: var(--backdrop-filter);
 }
 
 .theme-button {
