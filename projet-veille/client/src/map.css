@@ -120,7 +120,6 @@
     height: 100%;
     background-color: orange;
     border-radius: 3px;
-<<<<<<< HEAD
     animation: bounce 2.2s ease infinite alternate;
     content: '';
   }
@@ -141,10 +140,6 @@
     z-index: 1;
   }
   
-=======
-    content: '';
-  }
-}
 
 @keyframes bounce {
   10% {
@@ -192,4 +187,3 @@ span {
   left: 1vw;
   z-index: 1;
 }
->>>>>>> 44b4ed50ce0fc439e46762ff85e8544789562223
