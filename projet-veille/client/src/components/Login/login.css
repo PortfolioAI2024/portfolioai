@@ -10,13 +10,6 @@
     height: auto;
   }
   
-  /* Right side login form */
-  .login .w-full.md\:w-1/2 {
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   
   /* Form container */
   .login .container {

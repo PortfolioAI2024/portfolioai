@@ -1,0 +1,17 @@
+/* styles.css */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  padding: 1rem; /* Adjust padding as needed */
+}
+
+.buttons-container {
+  display: flex;
+  align-items: flex-start; /* Align buttons to the top */
+}
+
+/* Adjust button styles as needed */
+.button {
+  margin-left: 0.5rem; /* Adjust margin between buttons */
+}
