@@ -1,154 +1,151 @@
-.portfolio {
-    color: #f8f8f8;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 1000px; /* Increased width */
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #2c3e50;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center-align children horizontally */
-}
-
-.portfolio h1 {
-    margin-bottom: 2rem; /* Increase space below the header */
-}
-
-.portfolio form {
-    width: 80%; /* Set form width to occupy more space */
-}
-
-.portfolio input,
-.portfolio select,
-.portfolio button,
-.portfolio textarea {
-    color: #333;
-    background-color: #fff;
-    padding: 12px 20px; /* Increase padding for larger touch targets */
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1rem;
-    width: 100%; /* Full width of form container */
-    margin-bottom: 1.5rem; /* Increase space between form fields */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-.portfolio button {
-    cursor: pointer;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: auto; /* Adjust button width to content */
-    padding: 12px 25px; /* Increase button padding */
-}
-
-/* More specificity for the submit button to differentiate it */
-.portfolio button[type='submit'] {
-    width: 100%; /* Full width for submit button */
-    margin-top: 1rem; /* Space above submit button */
-    padding: 15px 20px; /* Larger padding for submit button */
-}
-
-.portfolio button:hover,
-.portfolio button:active {
-    background-color: #2980b9;
-}
-
-.portfolio label {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    width: 100%; /* Ensure labels match input/select/button width */
-    text-align: left; /* Align text to the left */
-}
-
-.portfolio ul {
-    list-style: none;
+/* Basic reset and font definitions */
+* {
     padding: 0;
-    width: 100%; /* Full width of form container */
-}
-
-.portfolio li {
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between; /* Spread out list items */
-    align-items: center;
-    width: 100%; /* Full width for list items */
-}
-
-.portfolio .remove-item-button {
-    background-color: #e74c3c;
-    padding: 8px 16px; /* Padding for remove buttons */
-}
-
-.portfolio .remove-item-button:hover {
-    background-color: #c0392b;
-}
-
-.portfolio input[type='file'] {
-    opacity: 0;
-    position: absolute;
-    width: 0.1px;
-    height: 0.1px;
-    z-index: -1;
-}
-
-.portfolio input[type='file'] + label {
-    background-color: #7f8c8d;
-    padding: 12px 25px;
-    margin-top: 1rem; /* Space above file label */
-    display: inline-block;
-    width: auto; /* Auto width for file label */
-}
-
-.portfolio input[type='file'] + label:hover {
-    background-color: #95a5a6;
-}
-
-/* Improve form alignment and layout */
-@media (max-width: 768px) {
-    .portfolio {
-        width: 90%;
-        padding: 1rem;
-    }
-
-    .portfolio form {
-        width: 100%; /* Full width on smaller screens */
-    }
-}
-.portfolio input[type='file'] {
-    /* Remove the opacity and width that was previously hiding the input */
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #B39DDB;
+    background-color: #121212;
+  }
+  
+  /* Container for the whole Portfolio section */
+  .portfolio {
+    max-width: 768px;
+    margin: 1rem auto;
+    padding: 2rem;
+    background: #1E1E1E;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Typography styles */
+  h1.text-4xl {
+    font-size: 2.25rem;
+    color: #673AB7;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  label.block.font-semibold {
+    display: block;
+    color: #7E57C2;
+    margin: 0.5rem 0;
     font-size: 1rem;
-    padding: 0.5rem; /* Same padding as other inputs */
-    margin-bottom: 1rem; /* Consistent bottom margin with other form elements */
+    font-weight: 600;
+  }
+  
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="file"],
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 0.375rem;
+    border: 1px solid #673AB7;
+    background: #2f2f2f;
+    color: #d5d5d5;
+    font-size: 1rem;
+  }
+  
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="email"]:focus,
+  input[type="file"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #9575CD;
+    box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.5);
+  }
+  
+  /* Button styles */
+  button,
+  input[type="submit"] {
+    background-color: #673AB7;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    margin: 1rem 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  button:hover,
+  input[type="submit"]:hover {
+    background-color: #7E57C2;
+  }
+  
+  /* Utility classes */
+  .flex {
+    display: flex;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .mt-4 {
+    margin-top: 1rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* List styles */
+  ul.inline {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul.inline li.flex.flex-row {
+    background: #2f2f2f;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.375rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Chatbot custom styles if needed */
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .portfolio {
+      padding: 1rem;
+    }
+  
+    h1.text-4xl {
+      font-size: 1.75rem;
+    }
+  }
+  .chatbot-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #252525; /* Dark background for contrast */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the label to look like a button */
-.portfolio label[for='cv'] {
-    display: inline-block; /* Make the label inline-block */
-    cursor: pointer; /* Change the cursor to indicate clickable */
-    background-color: #3498db; /* Background color for the label */
-    color: #fff; /* Text color */
-    padding: 10px 15px; /* Padding inside the label */
-    border-radius: 4px; /* Rounded corners */
-    margin-top: 0.5rem; /* Spacing above the label */
-    transition: background-color 0.3s; /* Transition for hover effect */
-}
-
-.portfolio label[for='cv']:hover {
-    background-color: #2980b9; /* Darker shade on hover */
-}
-
-/* This hides the default file input styling */
-.portfolio input[type='file'] {
-    width: 1px; /* Reduce the size to the minimum */
-    height: 1px; /* Reduce the size to the minimum */
-    opacity: 0; /* Hide the input */
-    overflow: hidden; /* Ensure the input doesn't affect layout */
-    position: absolute; /* Remove from the document flow */
-    z-index: -1; /* Place it behind other elements */
+/* Ensure that the chatbot has enough space and is not contracted */
+.CreateChatbot {
+  display: block; /* or 'flex' depending on your design needs */
+  width: 100%; /* This can be adjusted as needed */
+  margin: 0 auto; /* This centers the chatbot in its container */
 }
