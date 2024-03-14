@@ -37,7 +37,9 @@ function App() {
         </div>
       </div>
       <div className="mt-4">
-        <p>Voici les profils des utilisateurs!</p>
+        <p>👾
+Cliquer pour prendre un meeting avec nos Stagiaires 👾
+</p>
         {studentsData.length > 0 && (
           <ListStudents students={studentsData} />
         )}

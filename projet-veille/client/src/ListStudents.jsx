@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Keep this import statement here
+import { Link } from "react-router-dom";
 import "./list.css"; // Ensure this path is correct
+import profilePicture from "./assets/pfp.png"; // Import the profile picture
 
 const StudentCard = ({ student }) => (
     student.langues && (
@@ -12,6 +13,9 @@ const StudentCard = ({ student }) => (
         >
             <div className="card" style={{ backgroundColor: 'var(--card-bg-color)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', width: '280px', minWidth: '280px' }}>
                 <div className="card-inner">
+                    <div className="profile-container"> {/* Container to center the profile picture */}
+                        <img src={profilePicture} alt="Profile" className="profile-picture" style={{ width: '80px', height: '80px', borderRadius: '50%', display: 'block', margin: 'auto' }} />
+                    </div>
                     <div className="card-content">
                         {/* Emphasizing the name with larger font size and bold weight */}
                         <div className="card-title" style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--text-color)' }}>
@@ -71,6 +75,23 @@ export default function ListStudents({ students }) {
 
     return (
         <>
+            <header className="header"> {/* Header container */}
+                <div className="header-content"> {/* Header content */}
+                    <div className="portfolio-title">PortfolioAI</div> {/* Text at the top left */}
+                    <div className="header-buttons"> {/* Header buttons */}
+                        <Link to="/login">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button"> {/* Added button class */}
+                                Login
+                            </button>
+                        </Link>
+                        <Link to="/signup">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded button ml-2"> {/* Added button class */}
+                                Signup
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </header>
             <div className={`container ${theme}`}>
                 <div className="search-container">
                     <input
