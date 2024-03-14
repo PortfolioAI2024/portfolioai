@@ -1,119 +1,89 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const StudentCard = (props) => (
-    <>
-        {props.student.langues && (
-            <Link
-                to={`https://interactive.convai.com/character-id=${props.student.charID}`}
-                className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-                <div className="bg-white dark:bg-gray-700 bg-opacity-75 border border-gray-300 dark:border-gray-600 shadow-lg p-4 m-2 rounded-md text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-                    <div className="font-bold text-lg">{`${props.student.surname} ${props.student.name}`}</div>
-                    <a
-                        href={`https://github.com/${props.student.GitHubLink}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 hover:text-blue-700"
-                    >{`Github: ${props.student.GitHubLink}`}</a>
+import "./list.css"; // Ensure this path is correct
 
-                    <div className="text-gray-700 dark:text-gray-300 mt-2">
-                        Langues:
-                        <ul className="list-inside list-disc">
-                            {props.student.langues.map((language, index) => (
-                                <li key={index}>{language}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </Link>
-        )}
-    </>
-);
-
-export default function ListStudents(props) {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [students, setStudents] = useState(props.students);
-    const [filteredStudents, setFilteredStudents] = useState(props.students);
-    const [theme, setTheme] = useState("light"); // Theme state
-
-    useEffect(() => {
-        const lowercasedFilter = searchTerm.toLowerCase();
-        const filteredData = students.filter((item) => {
-            return Object.keys(item).some(
-                (key) =>
-                    typeof item[key] === "string" &&
-                    item[key].toLowerCase().includes(lowercasedFilter)
-            );
-        });
-        setFilteredStudents(filteredData);
-        console.log(students);
-    }, [searchTerm, students]);
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") ?? "light";
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        setTheme(savedTheme);
-    }, []);
-
-    const sortStudents = (criteria) => {
-        let sortedStudents = [...filteredStudents];
-        if (criteria === "name") {
-            sortedStudents.sort((a, b) =>
-                `${a.prenom} ${a.nom}`.localeCompare(`${b.prenom} ${b.nom}`)
-            );
-        } else if (criteria === "price") {
-            sortedStudents.sort((a, b) => a.prix - b.prix);
-        }
-        setFilteredStudents(sortedStudents);
-    };
-
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-        document.documentElement.setAttribute("data-theme", newTheme);
-    };
-
-    return (
-        <>
-            <div
-                className={
-                    theme === "light" ? "bg-white" : "bg-gray-800 text-white"
-                }
-            >
-                <div className="flex flex-col md:flex-row justify-between items-center p-4">
-                    <h1 className="text-4xl font-bold mb-4 md:mb-0">
-                        Meet Our Interns
-                    </h1>
-                    <div className="flex items-center">
-                        <select
-                            className="bg-gray-200 dark:bg-gray-600 p-2 rounded mr-4"
-                            onChange={(e) => sortStudents(e.target.value)}
-                        >
-                            <option value="">Sort By</option>
-                            <option value="name">Name</option>
-                            <option value="price">Price</option>
-                        </select>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="p-2 rounded"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button
-                            onClick={toggleTheme}
-                            className="ml-4 bg-gray-200 dark:bg-gray-600 p-2 rounded"
-                        >
-                            {theme === "light" ? "Dark" : "Light"} Mode
-                        </button>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 place-items-center p-4">
-                    {filteredStudents.map((student) => (
-                        <StudentCard key={student.id} student={student} />
-                    ))}
-                </div>
+const StudentCard = ({ student }) => (
+    student.langues && (
+      <div className="card">
+        <div className="card-inner">
+          <div className="card-content">
+            {/* Emphasizing the name with larger font size and bold weight */}
+            <div className="card-title" style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--link-color)' }}>
+              {`${student.surname}, ${student.name}`}
             </div>
-        </>
+            {/* Making GitHub link standout */}
+            <a
+              href={`https://github.com/${student.GitHubLink}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-link"
+              style={{ fontWeight: '500' }} // Slightly bolder than normal text for emphasis
+            >
+              GitHub: <span style={{ textDecoration: 'underline' }}>{student.GitHubLink}</span>
+            </a>
+            {/* Languages Section Enhancement */}
+            <div className="card-description" style={{ marginTop: '10px' }}>
+              <span style={{ fontWeight: 'bold' }}>Languages:</span>
+              <ul style={{ paddingLeft: '20px' }}> {/* Indent list for better structure */}
+                {student.langues.map((language, index) => (
+                  <li key={index}>{language}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
+  
+
+export default function ListStudents({ students }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredStudents, setFilteredStudents] = useState(students);
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const filteredData = students.filter(student =>
+      (student.surname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       student.name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
+    setFilteredStudents(filteredData);
+  }, [searchTerm, students]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") ?? "light";
+    setTheme(savedTheme);
+    document.documentElement.className = savedTheme;
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.className = newTheme;
+  };
+
+  return (
+    <>
+      <div className={`container ${theme}`}>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button className="theme-button" onClick={toggleTheme}>
+            {theme === "light" ? "Dark" : "Light"} Mode
+          </button>
+        </div>
+        <div className="student-grid">
+          {filteredStudents.map(student => (
+            <StudentCard key={student.id} student={student} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
