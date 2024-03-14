@@ -6,9 +6,10 @@ import { useZustStore } from "./hooks/useStore";
 
 import { Suspense, useRef } from "react";
 import ChatBubble from "./components/chat/Chat";
-
+import "./index.css";
+import "./World.css";
 const testing = false;
-function App() {
+function World() {
   const actions = useZustStore((state) => state.actions);
   // global client state
   const clientState = useZustStore((state) => state.clientState);
@@ -17,9 +18,12 @@ function App() {
   actions.updateHeroRef(heroRef);
 
   return (
+    // i want to reset all previous css, i will use the css from index.css and World.css
+
     <>
       <Suspense fallback={null}>
         <Canvas
+          style={{  position: "absolute", top: "0", left: "0"}}
           shadows
           camera={{ position: [0, 2, 3], fov: 75 }}
           // loading the navigation mesh on canvas load
@@ -44,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default World;
