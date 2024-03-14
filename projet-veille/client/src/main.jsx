@@ -5,6 +5,9 @@ import router from "./router";
 import "./index.css";
 import "./import.css";
 
+import "./map.css";
+import "./World.css";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />

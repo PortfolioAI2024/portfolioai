@@ -94,7 +94,7 @@ const JacobNpc = ({ name, position, heroRef }) => {
         updateActionState.Jacob("idle");
         if (
           clientState?.npcName === client?.npcName ||
-          client?.characterId === VITE_JACOB_ID
+          client?.characterId === VITE__characterId
         ) {
           updateClient(null);
         }

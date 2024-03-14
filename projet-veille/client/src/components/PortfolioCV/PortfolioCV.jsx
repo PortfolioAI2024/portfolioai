@@ -230,11 +230,11 @@ function PortfolioCV() {
               </div>
             </div>
 
-            <div className="mt-4">
-              {/* Utilisez Link avec to pour spécifier l'URL vers laquelle vous souhaitez rediriger */}
+            <div>
+              {/* Utilisez Link pour créer un bouton de lien */}
               <Link
                 to="/world"
-                className="bg-blue-500 text-white py-2 px-4 rounded"
+                className="bg-red-500 text-white py-3 px-6 rounded-lg font-bold text-xl"
               >
                 Aller quelque part
               </Link>
