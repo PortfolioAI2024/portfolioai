@@ -20,6 +20,13 @@ function App() {
     <>
       <Suspense fallback={null}>
         <Canvas
+          style={{
+            height: "100vh",
+            width: "1920px",
+            position: "absolute",
+            top: "0",
+            left: "0",
+          }}
           shadows
           camera={{ position: [0, 2, 3], fov: 75 }}
           // loading the navigation mesh on canvas load
